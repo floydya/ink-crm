@@ -1,9 +1,7 @@
 from django.conf import settings
-from django.core.validators import MinValueValidator
 
 from rest_framework import serializers
 from djmoney.contrib.django_rest_framework.fields import MoneyField
-from djmoney.money import Money
 from drf_base64.fields import Base64ImageField
 
 from applications.accounts.base_serializers import UsernameSerializer
@@ -58,12 +56,5 @@ class ExpenseSerializer(serializers.ModelSerializer):
         )
     
     def create(self, validated_data):
-        return Expense.create_expense(
-            parlor=validated_data.get('parlor'),
-            type=validated_data.get('type'),
-            amount=validated_data.get('amount'),
-            payed_amount=validated_data.get('payed_amount'),
-            note=validated_data.get('note'),
-            image=validated_data.get('image', None),
-            created_by=self.context['request'].user
-        )
+        validated_data['created_by'] = self.context['request'].user
+        return super(ExpenseSerializer, self).create(validated_data)
