@@ -1,0 +1,102 @@
+version: '3.7'
+
+x-common-variables: &common-variables
+  DJANGO_SECRET_KEY: CHANGEME!!!
+  DJANGO_DEBUG: "True"
+  DJANGO_SSL: "False"
+  DJANGO_DB_URL: postgres://postgres:postgres@db:5432/db
+  DJANGO_CACHE_URL: redis://cache:6379
+  DJANGO_CACHEOPS: redis://cache:6379
+  CELERY_BROKER_URL: redis://cache:6379
+  DJANGO_SETTINGS_MODULE: app.settings
+
+
+services:
+
+  caddy:
+#    build: ./client
+    image: abiosoft/caddy:no-stats
+    environment:
+      - SERVER_NAME=demo.ink
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - static_files:/_/static
+      - media_files:/_/media
+      - ./Caddyfile:/etc/Caddyfile
+    depends_on:
+      - backend
+#      - gql
+
+  cache:
+    image: redis:alpine
+    expose:
+      - 6379
+
+  db:
+    image: postgres:11-alpine
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=db
+    expose:
+      - 5432
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/:cached
+
+#  gql:
+#    image: hasura/graphql-engine:v1.2.0-beta.2
+#    expose:
+#      - 8080
+#    restart: always
+#    environment:
+#      HASURA_GRAPHQL_DATABASE_URL: postgres://postgres:postgres@db:5432/db
+#      HASURA_GRAPHQL_ENABLE_CONSOLE: "true" # set to "false" to disable console
+#      HASURA_GRAPHQL_ENABLED_LOG_TYPES: startup, http-log, webhook-log, websocket-log, query-log
+#      # HASURA_GRAPHQL_ADMIN_SECRET: myadminsecretkey
+#    depends_on:
+#      - db
+    
+  backend:
+    build: ./server
+    command: gunicorn app.wsgi:application --bind 0.0.0.0:8000
+    environment: *common-variables
+    expose:
+      - 8000
+    volumes:
+      - static_files:/home/app/web/app/static
+      - media_files:/home/app/web/app/uploads
+    depends_on:
+      - cache
+      - db
+    links:
+      - cache:redis
+      - db
+
+#  celery:
+#    build: ./server
+#    command: celery -A app worker -l ERROR -B
+#    environment: *common-variables
+#    depends_on:
+#      - backend
+#    links:
+#      - cache:redis
+#      - backend
+#      - db
+#
+#  celery_beat:
+#    build: ./server
+#    command: celery -A app beat -l ERROR --scheduler django_celery_beat.schedulers:DatabaseScheduler
+#    environment: *common-variables
+#    depends_on:
+#      - backend
+#    links:
+#      - cache:redis
+#      - backend
+#      - db
+
+volumes:
+  postgres_data:
+  static_files:
+  media_files:

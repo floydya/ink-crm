@@ -1,0 +1,48 @@
+[[source]]
+url = "https://pypi.python.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[scripts]
+requirements = "pip freeze > requirements.txt"
+
+[requires]
+python_version = '3.8'
+
+[packages]
+Django = "==3.0.3"
+celery = "*"
+django-admin-rangefilter = "*"
+django-cacheops = "*"
+django-ckeditor = "*"
+django-cleanup = "*"
+django-cors-headers = "*"
+django-debug-toolbar = "*"
+django-des = "*"
+django-environ = "*"
+django-filter = "*"
+django-jet = {git = "https://github.com/Lalox94/django-jet.git"}
+django-jinja = {git = "https://github.com/Dmitri-Sintsov/django-jinja.git"}
+django-model-utils = "*"
+django-money = "*"
+django-mptt = {git = "https://github.com/django-mptt/django-mptt.git"}
+django-phonenumber-field = "*"
+django-postie = "*"
+django-redis = {git = "https://github.com/niwinz/django-redis"}
+django-rest-swagger = "*"
+django-rosetta = "*"
+django-solo = "*"
+django_celery_beat = "*"
+django-timezone-field = {git = "https://github.com/mfogel/django-timezone-field.git"}
+djangorestframework = "*"
+djangorestframework-jwt = "*"
+drf-nested-routers = "*"
+drf_base64 = {git = "https://github.com/floydya/drf_base64.git"}
+gunicorn = "*"
+ipython = "*"
+jinja2 = "*"
+phonenumbers = "*"
+pillow = "*"
+psycopg2-binary = "*"
+sentry-sdk = "*"
+unidecode = "*"

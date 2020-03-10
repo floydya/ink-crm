@@ -1,0 +1,35 @@
+{$SERVER_NAME}:80 {
+    header / -Server
+
+    gzip
+
+    root /_/build
+
+    rewrite / {
+        to {path} /
+    }
+}
+
+api.{$SERVER_NAME}:80 {
+    header / -Server
+
+    cache
+    gzip
+
+    proxy / backend:8000 {
+        except /static /media
+        transparent
+    }
+    root /_
+}
+
+gql.{$SERVER_NAME}:80 {
+    header / -Server
+
+    cache
+    gzip
+
+    proxy / gql:8080 {
+        transparent
+    }
+}

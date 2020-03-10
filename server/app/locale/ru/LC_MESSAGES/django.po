@@ -1,0 +1,1901 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-02-19 14:38+0000\n"
+"PO-Revision-Date: 2020-02-19 14:40+0202\n"
+"Last-Translator: b'  <ad@adm.com>'\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
+"X-Translated-Using: django-rosetta 0.9.3\n"
+
+#: _api/auth/serializers.py:32
+msgid "Введенные логин и/или пароль не правильные."
+msgstr ""
+
+#: _api/auth/serializers.py:36
+msgid "Пользователь не активирован."
+msgstr ""
+
+#: _api/auth/serializers.py:39
+msgid "Выбранный салон не доступен для Вас."
+msgstr ""
+
+#: _api/customers/serializers.py:88
+msgid "Номер телефона уже существует в базе данных!"
+msgstr ""
+
+#: _api/customers/serializers.py:102
+msgid "Укажите пин-код из СМС."
+msgstr ""
+
+#: _api/expenses/serializers.py:33
+msgid "В кассе нет столько средств!"
+msgstr ""
+
+#: _api/expenses/serializers.py:36
+msgid "Фото должно быть обязательно прикреплено!"
+msgstr ""
+
+#: _api/sessions/serializers.py:211
+msgid "Номер сертификата невалидный."
+msgstr ""
+
+#: _api/sessions/serializers.py:218
+msgid "Указанная цена меньше номинала сертификата!"
+msgstr ""
+
+#: _api/sessions/serializers.py:224
+msgid "Акционный сертификат может покрывать только 50% от суммы."
+msgstr ""
+
+#: _api/sessions/serializers.py:258
+msgid "Поле фото обязательно к заполнению."
+msgstr ""
+
+#: _api/sessions/serializers.py:299 _api/store/serializers.py:81
+msgid "На складе недостаточно товара!"
+msgstr ""
+
+#: _api/sessions/serializers.py:347
+msgid "Нельзя создать сеанс на прошедшие даты"
+msgstr ""
+
+#: _api/sessions/serializers.py:362
+msgid "Нельзя создать сеанс на прошеднее время(максимум -15 минут)"
+msgstr ""
+
+#: _api/store/serializers.py:83
+msgid "Закупочная стоимость товара меньше указанной!"
+msgstr ""
+
+#: _api/students/serializers.py:48
+msgid "Сумма \"Уже оплачено\" больше стоимости обучения."
+msgstr ""
+
+#: _api/students/serializers.py:53
+msgid "Ученик с таким именем и фамилией уже существует :("
+msgstr ""
+
+#: _apps/accounts/admin.py:132 _apps/accounts/admin.py:151
+msgid "Personal data"
+msgstr ""
+
+#: _apps/accounts/admin.py:137 applications/accounts/admin.py:129
+msgid "Permissions"
+msgstr ""
+
+#: _apps/accounts/admin.py:143 applications/accounts/admin.py:137
+msgid "Dates"
+msgstr ""
+
+#: _apps/accounts/admin.py:243 _apps/accounts/choices.py:10
+#: applications/accounts/choices.py:9
+msgid "Administrator"
+msgstr ""
+
+#: _apps/accounts/admin.py:244 _apps/accounts/choices.py:11
+#: _apps/sessions/models.py:75 applications/accounts/choices.py:10
+msgid "Master"
+msgstr ""
+
+#: _apps/accounts/admin.py:245 _apps/accounts/choices.py:12
+msgid "Student/Guest"
+msgstr ""
+
+#: _apps/accounts/apps.py:8 _apps/accounts/models.py:87
+#: applications/accounts/apps.py:8 applications/accounts/models.py:115
+msgid "Employees"
+msgstr ""
+
+#: _apps/accounts/choices.py:7 applications/accounts/choices.py:7
+msgid "Owner"
+msgstr ""
+
+#: _apps/accounts/choices.py:8
+msgid "Office"
+msgstr ""
+
+#: _apps/accounts/choices.py:9 _apps/core/models/parlor/parlor.py:32
+#: applications/accounts/choices.py:8
+msgid "Director"
+msgstr ""
+
+#: _apps/accounts/choices.py:13
+msgid "Jivosite"
+msgstr ""
+
+#: _apps/accounts/choices.py:14
+msgid "Security"
+msgstr ""
+
+#: _apps/accounts/models.py:43 applications/accounts/models.py:61
+msgid "First name"
+msgstr ""
+
+#: _apps/accounts/models.py:47 applications/accounts/models.py:66
+msgid "Middle name"
+msgstr ""
+
+#: _apps/accounts/models.py:52 applications/accounts/models.py:72
+msgid "Last name"
+msgstr ""
+
+#: _apps/accounts/models.py:57 applications/accounts/models.py:133
+#: applications/motivations/base.py:91 applications/motivations/models.py:134
+msgid "Role"
+msgstr ""
+
+#: _apps/accounts/models.py:64
+msgid "Временно заблокирован"
+msgstr ""
+
+#: _apps/accounts/models.py:86 applications/accounts/models.py:114
+msgid "employee"
+msgstr ""
+
+#: _apps/accounts/models.py:94 _apps/motivation/models.py:85
+#: applications/accounts/models.py:123
+msgid "User"
+msgstr ""
+
+#: _apps/accounts/models.py:98 _apps/core/models/parlor/parlor.py:25
+#: _apps/customers/models.py:52 applications/accounts/models.py:83
+#: applications/broadcasts/models.py:39 applications/customers/models.py:13
+#: applications/parlors/models.py:15
+msgid "Phone number"
+msgstr ""
+
+#: _apps/accounts/models.py:103
+msgid "Address"
+msgstr ""
+
+#: _apps/accounts/models.py:109 _apps/customers/models.py:60
+#: applications/accounts/models.py:89
+msgid "Date of Birth"
+msgstr ""
+
+#: _apps/accounts/models.py:114 applications/accounts/models.py:95
+msgid "Avatar"
+msgstr ""
+
+#: _apps/accounts/models.py:123 _apps/core/models/parlor/parlor.py:45
+#: applications/parlors/apps.py:8
+msgid "Parlors"
+msgstr ""
+
+#: _apps/accounts/models.py:128 _apps/accounts/models.py:129
+#: applications/accounts/models.py:152 applications/accounts/models.py:153
+msgid "Profile"
+msgstr ""
+
+#: _apps/accounts/models.py:135 _apps/advertising/models.py:15
+#: _apps/core/models/__init__.py:52 _apps/core/models/city/city.py:11
+#: _apps/core/models/parlor/parlor.py:18 _apps/customers/models.py:18
+#: _apps/expenses/models.py:21 _apps/expenses/models.py:167
+#: _apps/sessions/models.py:24 _apps/store/models.py:42
+#: _apps/store/models.py:125 _apps/store/models.py:145
+#: applications/core/models.py:8 applications/core/models.py:41
+#: applications/core/models.py:55 applications/core/models.py:69
+#: applications/parlors/models.py:10 applications/warehouse/models.py:9
+#: applications/warehouse/models.py:30
+msgid "Name"
+msgstr ""
+
+#: _apps/accounts/models.py:144 applications/core/models.py:49
+msgid "fine type"
+msgstr "тип штрафа"
+
+#: _apps/accounts/models.py:145
+msgid "Fine types"
+msgstr "Типы штрафов"
+
+#: _apps/accounts/models.py:150 _apps/advertising/models.py:76
+#: _apps/calls/choices.py:6 _apps/calls/choices.py:12
+#: _apps/sessions/models.py:126 applications/accounts/models.py:174
+msgid "Pending"
+msgstr ""
+
+#: _apps/accounts/models.py:151 _apps/store/models.py:365
+#: applications/accounts/models.py:175
+msgid "Payed"
+msgstr ""
+
+#: _apps/accounts/models.py:152 _apps/sessions/models.py:130
+#: _apps/store/models.py:369 applications/accounts/models.py:176
+msgid "Canceled"
+msgstr ""
+
+#: _apps/accounts/models.py:161 _apps/activity/models.py:90
+#: _apps/advertising/models.py:30 _apps/certificates/models.py:39
+#: _apps/expenses/models.py:123 _apps/expenses/models.py:182
+#: _apps/salary/models.py:56 _apps/sessions/models.py:66
+#: _apps/sessions/models.py:188 _apps/sessions/models.py:284
+#: _apps/sessions/models.py:315 _apps/store/models.py:230
+#: _apps/students/models.py:19 _apps/students/models.py:129
+#: shared/models/transaction.py:95 applications/accounts/models.py:186
+#: applications/accounts/models.py:384 applications/customers/models.py:23
+#: applications/records/models.py:32 applications/records/models.py:119
+msgid "Created by"
+msgstr ""
+
+#: _apps/accounts/models.py:164 _apps/activity/models.py:94
+#: _apps/certificates/models.py:34 _apps/expenses/models.py:185
+#: _apps/store/models.py:233 _apps/students/models.py:131
+#: shared/models/transaction.py:98 applications/accounts/models.py:189
+#: applications/accounts/models.py:387 applications/customers/models.py:26
+#: applications/records/models.py:22 applications/records/models.py:109
+msgid "Created at"
+msgstr ""
+
+#: _apps/accounts/models.py:172 _apps/activity/models.py:19
+#: _apps/salary/models.py:12 _apps/salary/models.py:48
+#: applications/accounts/models.py:208 applications/accounts/models.py:395
+msgid "Employee"
+msgstr ""
+
+#: _apps/accounts/models.py:180 _apps/activity/models.py:23
+#: _apps/advertising/models.py:35 _apps/certificates/models.py:31
+#: _apps/core/models/city/notebook.py:13 _apps/core/models/city/notebook.py:29
+#: _apps/core/models/city/notebook.py:45 _apps/core/models/parlor/parlor.py:51
+#: _apps/expenses/models.py:129 _apps/expenses/models.py:190
+#: _apps/reports/models.py:17 _apps/salary/models.py:16
+#: _apps/sessions/models.py:80 _apps/sessions/models.py:195
+#: _apps/sessions/models.py:289 _apps/store/models.py:190
+#: _apps/store/models.py:242 _apps/students/models.py:32
+#: _apps/students/models.py:99 applications/parlors/models.py:61
+#: applications/records/models.py:39 applications/warehouse/models.py:67
+msgid "Parlor"
+msgstr ""
+
+#: _apps/accounts/models.py:184 _apps/salary/models.py:19
+#: _apps/salary/models.py:62 shared/models/transaction.py:115
+#: applications/accounts/models.py:212
+msgid "Amount"
+msgstr ""
+
+#: _apps/accounts/models.py:190 _apps/certificates/models.py:46
+#: _apps/customers/models.py:59 _apps/expenses/models.py:146
+#: _apps/expenses/models.py:205 _apps/sessions/models.py:96
+#: applications/accounts/models.py:219 applications/customers/models.py:57
+msgid "Note"
+msgstr ""
+
+#: _apps/accounts/models.py:194 _apps/sessions/models.py:143
+#: applications/accounts/models.py:230
+msgid "Status"
+msgstr ""
+
+#: _apps/accounts/models.py:204 applications/accounts/models.py:241
+msgid "Status changed by"
+msgstr ""
+
+#: _apps/accounts/models.py:207 applications/accounts/models.py:244
+msgid "Status changed at"
+msgstr ""
+
+#: _apps/accounts/models.py:222 _apps/advertising/models.py:42
+#: _apps/certificates/models.py:23 applications/accounts/models.py:348
+#: applications/accounts/models.py:367
+msgid "Type"
+msgstr ""
+
+#: _apps/accounts/models.py:226
+msgid "Proofs"
+msgstr ""
+
+#: _apps/accounts/models.py:232 applications/accounts/models.py:353
+msgid "fine"
+msgstr "штраф"
+
+#: _apps/accounts/models.py:233 applications/accounts/models.py:354
+msgid "fines"
+msgstr "Штрафы"
+
+#: _apps/accounts/models.py:240 applications/accounts/models.py:372
+msgid "bounty"
+msgstr "премия"
+
+#: _apps/accounts/models.py:241 applications/accounts/models.py:373
+msgid "bounties"
+msgstr ""
+
+#: _apps/accounts/models.py:265 applications/accounts/models.py:408
+msgid "weekend"
+msgstr ""
+
+#: _apps/accounts/models.py:266 applications/accounts/admin.py:96
+msgid "Weekends"
+msgstr ""
+
+#: _apps/activity/apps.py:9 _apps/activity/models.py:86
+msgid "Activity"
+msgstr ""
+
+#: _apps/activity/models.py:25 applications/accounts/models.py:398
+#: applications/records/models.py:57
+msgid "Date"
+msgstr ""
+
+#: _apps/activity/models.py:28
+msgid "Start at"
+msgstr ""
+
+#: _apps/activity/models.py:29
+msgid "End at"
+msgstr ""
+
+#: _apps/activity/models.py:64
+msgid "activity"
+msgstr ""
+
+#: _apps/activity/models.py:65
+msgid "Activities"
+msgstr ""
+
+#: _apps/activity/models.py:97 _apps/certificates/models.py:19
+msgid "Action"
+msgstr ""
+
+#: _apps/activity/models.py:101
+msgid "activity log"
+msgstr ""
+
+#: _apps/activity/models.py:102
+msgid "Activity logs"
+msgstr ""
+
+#: _apps/advertising/apps.py:8
+msgid "Advertising"
+msgstr ""
+
+#: _apps/advertising/models.py:17 _apps/advertising/models.py:73
+msgid "Points"
+msgstr ""
+
+#: _apps/advertising/models.py:23
+msgid "advert type"
+msgstr ""
+
+#: _apps/advertising/models.py:24
+msgid "Advert types"
+msgstr ""
+
+#: _apps/advertising/models.py:38 _apps/expenses/models.py:137
+#: _apps/salary/models.py:59 _apps/sessions/models.py:139
+#: _apps/sessions/models.py:191 _apps/students/models.py:22
+msgid "Timestamp: added"
+msgstr ""
+
+#: _apps/advertising/models.py:45 applications/accounts/models.py:224
+msgid "URL"
+msgstr ""
+
+#: _apps/advertising/models.py:47
+msgid "Screenshot"
+msgstr ""
+
+#: _apps/advertising/models.py:52 _apps/core/models/parlor/parlor.py:22
+#: _apps/salary/submodels/logs.py:14 _apps/students/models.py:106
+msgid "Cash"
+msgstr ""
+
+#: _apps/advertising/models.py:53 _apps/advertising/models.py:70
+#: _apps/sessions/models.py:212
+msgid "Certificate"
+msgstr ""
+
+#: _apps/advertising/models.py:54
+msgid "Free"
+msgstr ""
+
+#: _apps/advertising/models.py:58
+msgid "Payment type"
+msgstr ""
+
+#: _apps/advertising/models.py:61
+msgid "Payment photo"
+msgstr ""
+
+#: _apps/advertising/models.py:65 _apps/sessions/models.py:207
+#: _apps/store/models.py:253 _apps/students/models.py:35
+msgid "Price"
+msgstr ""
+
+#: _apps/advertising/models.py:77 _apps/notifications/models.py:13
+msgid "Declined"
+msgstr ""
+
+#: _apps/advertising/models.py:78
+msgid "Accepted"
+msgstr ""
+
+#: _apps/advertising/models.py:81
+msgid "Checked?"
+msgstr ""
+
+#: _apps/advertising/models.py:86
+msgid "Checked by"
+msgstr ""
+
+#: _apps/advertising/models.py:88
+msgid "Checked at"
+msgstr ""
+
+#: _apps/advertising/models.py:118
+msgid "advert"
+msgstr ""
+
+#: _apps/advertising/models.py:119
+msgid "Adverts"
+msgstr ""
+
+#: _apps/advertising/serializers.py:41
+msgid "Price is required for that payment type"
+msgstr ""
+
+#: _apps/advertising/serializers.py:45
+msgid "Добавьте чек оплаты"
+msgstr ""
+
+#: _apps/advertising/serializers.py:52
+msgid "Certificate is required for that payment type"
+msgstr ""
+
+#: _apps/calls/choices.py:7 _apps/calls/choices.py:16
+msgid "OK"
+msgstr ""
+
+#: _apps/calls/choices.py:8
+msgid "Waiting"
+msgstr ""
+
+#: _apps/calls/choices.py:13
+msgid "Redirected"
+msgstr ""
+
+#: _apps/calls/choices.py:14
+msgid "Not responded"
+msgstr ""
+
+#: _apps/calls/choices.py:15
+msgid "Invalid number"
+msgstr ""
+
+#: _apps/calls/choices.py:17
+msgid "Angry"
+msgstr ""
+
+#: _apps/calls/choices.py:18 _apps/sessions/models.py:129
+#: _apps/store/models.py:368
+msgid "Completed"
+msgstr ""
+
+#: _apps/calls/choices.py:19
+msgid "Checked"
+msgstr ""
+
+#: _apps/calls/models.py:32
+msgid "roll call"
+msgstr ""
+
+#: _apps/calls/models.py:33
+msgid "Roll calls"
+msgstr ""
+
+#: _apps/calls/models.py:86
+msgid "Post call"
+msgstr ""
+
+#: _apps/calls/models.py:87
+msgid "Post calls"
+msgstr ""
+
+#: _apps/calls/models.py:138 _apps/sessions/models.py:333
+msgid "log"
+msgstr ""
+
+#: _apps/calls/models.py:139
+msgid "Logs"
+msgstr ""
+
+#: _apps/certificates/apps.py:8 _apps/certificates/models.py:57
+msgid "Certificates"
+msgstr ""
+
+#: _apps/certificates/models.py:20
+msgid "Bought"
+msgstr ""
+
+#: _apps/certificates/models.py:26
+msgid "Certificate ID"
+msgstr ""
+
+#: _apps/certificates/models.py:42
+msgid "Denomination"
+msgstr ""
+
+#: _apps/certificates/models.py:45 _apps/sessions/models.py:71
+#: applications/records/models.py:18
+msgid "Customer"
+msgstr ""
+
+#: _apps/certificates/models.py:48
+msgid "Сертификат активен?"
+msgstr ""
+
+#: _apps/certificates/models.py:51
+msgid "Used at"
+msgstr ""
+
+#: _apps/certificates/models.py:56
+msgid "certificate"
+msgstr ""
+
+#: _apps/core/apps.py:8
+msgid "Core"
+msgstr ""
+
+#: _apps/core/models/__init__.py:18 _apps/core/models/configuration.py:13
+#: _apps/core/models/configuration.py:63
+msgid "Enabled"
+msgstr ""
+
+#: _apps/core/models/__init__.py:19 _apps/core/models/configuration.py:14
+#: _apps/core/models/configuration.py:64
+msgid "Disabled"
+msgstr ""
+
+#: _apps/core/models/__init__.py:28
+msgid "YouTube enabled?"
+msgstr ""
+
+#: _apps/core/models/__init__.py:29
+msgid "Youtube URL"
+msgstr ""
+
+#: _apps/core/models/__init__.py:31
+msgid "Drive enabled?"
+msgstr ""
+
+#: _apps/core/models/__init__.py:32
+msgid "Drive URL"
+msgstr ""
+
+#: _apps/core/models/__init__.py:38
+msgid "configuration"
+msgstr ""
+
+#: _apps/core/models/__init__.py:39
+msgid "Configuration"
+msgstr ""
+
+#: _apps/core/models/__init__.py:60
+msgid "URL category"
+msgstr ""
+
+#: _apps/core/models/__init__.py:61
+msgid "URL Categories"
+msgstr ""
+
+#: _apps/core/models/__init__.py:76
+msgid "URL entity"
+msgstr ""
+
+#: _apps/core/models/__init__.py:77
+msgid "URL Entities"
+msgstr ""
+
+#: _apps/core/models/city/city.py:14
+msgid "City ID"
+msgstr ""
+
+#: _apps/core/models/city/city.py:17
+msgid "Country code"
+msgstr ""
+
+#: _apps/core/models/city/city.py:25
+msgid "city"
+msgstr ""
+
+#: _apps/core/models/city/city.py:26
+msgid "Cities"
+msgstr ""
+
+#: _apps/core/models/city/notebook.py:22
+msgid "note"
+msgstr ""
+
+#: _apps/core/models/city/notebook.py:23
+msgid "Notebook"
+msgstr ""
+
+#: _apps/core/models/city/notebook.py:37
+msgid "file"
+msgstr ""
+
+#: _apps/core/models/city/notebook.py:38
+msgid "Files"
+msgstr ""
+
+#: _apps/core/models/configuration.py:22
+msgid "Promo certificate enabled"
+msgstr ""
+
+#: _apps/core/models/configuration.py:25
+msgid "Promo certificate value"
+msgstr ""
+
+#: _apps/core/models/configuration.py:29
+msgid "Advert enabled"
+msgstr ""
+
+#: _apps/core/models/configuration.py:33
+msgid "Advert value"
+msgstr ""
+
+#: _apps/core/models/configuration.py:37
+msgid "Force moderation enabled"
+msgstr ""
+
+#: _apps/core/models/configuration.py:41
+msgid "Consumable enabled"
+msgstr ""
+
+#: _apps/core/models/configuration.py:45
+msgid "Questionnaire enabled"
+msgstr ""
+
+#: _apps/core/models/configuration.py:49
+msgid "Changes enabled"
+msgstr ""
+
+#: _apps/core/models/configuration.py:72
+msgid "Self fine enabled"
+msgstr ""
+
+#: _apps/core/models/configuration.py:75
+msgid "Self bounty enabled"
+msgstr ""
+
+#: _apps/core/models/configuration.py:78
+msgid "Parlor changes enabled"
+msgstr ""
+
+#: _apps/core/models/configuration.py:81
+msgid "Jivo session enabled"
+msgstr ""
+
+#: _apps/core/models/configuration.py:84
+msgid "Jivo new student enabled"
+msgstr ""
+
+#: _apps/core/models/configuration.py:87
+msgid "Jivo session review enabled"
+msgstr ""
+
+#: _apps/core/models/parlor/parlor.py:14
+msgid "City"
+msgstr ""
+
+#: _apps/core/models/parlor/parlor.py:34
+msgid "Payment methods"
+msgstr ""
+
+#: _apps/core/models/parlor/parlor.py:36
+msgid "End time"
+msgstr ""
+
+#: _apps/core/models/parlor/parlor.py:44 applications/parlors/models.py:27
+msgid "parlor"
+msgstr ""
+
+#: _apps/core/models/parlor/parlor.py:55 _apps/expenses/models.py:134
+msgid "Expense type"
+msgstr ""
+
+#: _apps/core/models/parlor/parlor.py:58 _apps/expenses/models.py:140
+#: _apps/expenses/models.py:203 _apps/sessions/models.py:292
+#: _apps/sessions/models.py:310 _apps/store/models.py:197
+#: _apps/store/models.py:220 _apps/store/models.py:249
+#: applications/records/models.py:123 applications/warehouse/models.py:78
+msgid "Value"
+msgstr ""
+
+#: _apps/core/models/parlor/parlor.py:62
+msgid "expense limit"
+msgstr ""
+
+#: _apps/core/models/parlor/parlor.py:63
+msgid "Expense limits"
+msgstr ""
+
+#: _apps/core/models/parlor/parlor.py:77
+msgid "Before"
+msgstr ""
+
+#: _apps/core/models/parlor/parlor.py:78
+msgid "After"
+msgstr ""
+
+#: _apps/core/models/parlor/parlor.py:79
+msgid "Reason"
+msgstr ""
+
+#: _apps/core/models/parlor/parlor.py:83
+msgid "parlor cash log"
+msgstr ""
+
+#: _apps/core/models/parlor/parlor.py:84
+msgid "Parlor cash logs"
+msgstr ""
+
+#: _apps/core/models/parlor/parlor.py:110
+msgid "incoming cash"
+msgstr ""
+
+#: _apps/core/models/parlor/parlor.py:111
+msgid "Incoming cashes"
+msgstr ""
+
+#: _apps/customers/apps.py:9 _apps/customers/models.py:69
+msgid "Customers"
+msgstr ""
+
+#: _apps/customers/models.py:25
+msgid "find out choice"
+msgstr ""
+
+#: _apps/customers/models.py:26
+msgid "Find out choices"
+msgstr ""
+
+#: _apps/customers/models.py:32
+msgid "Customer SMS Verified"
+msgstr ""
+
+#: _apps/customers/models.py:38
+msgid "Added by"
+msgstr ""
+
+#: _apps/customers/models.py:46 applications/customers/models.py:31
+msgid "Full name"
+msgstr ""
+
+#: _apps/customers/models.py:49 applications/customers/models.py:35
+msgid "Email"
+msgstr ""
+
+#: _apps/customers/models.py:57 applications/customers/models.py:47
+msgid "Find out"
+msgstr ""
+
+#: _apps/customers/models.py:68 applications/customers/models.py:62
+msgid "customer"
+msgstr ""
+
+#: _apps/customers/models.py:122
+msgid "number code"
+msgstr ""
+
+#: _apps/customers/models.py:123
+msgid "Number codes"
+msgstr ""
+
+#: _apps/expenses/apps.py:8 _apps/expenses/models.py:157
+msgid "Expenses"
+msgstr ""
+
+#: _apps/expenses/models.py:25
+msgid "Required expense?"
+msgstr ""
+
+#: _apps/expenses/models.py:32
+msgid "expense attribute"
+msgstr ""
+
+#: _apps/expenses/models.py:33
+msgid "Expense attributes"
+msgstr ""
+
+#: _apps/expenses/models.py:144
+msgid "Expense photo"
+msgstr ""
+
+#: _apps/expenses/models.py:156
+msgid "expense"
+msgstr ""
+
+#: _apps/expenses/models.py:175
+msgid "incoming payment category"
+msgstr ""
+
+#: _apps/expenses/models.py:176
+msgid "incoming payment categories"
+msgstr ""
+
+#: _apps/expenses/models.py:194 _apps/motivation/models.py:170
+#: _apps/store/models.py:141 applications/warehouse/models.py:26
+msgid "Category"
+msgstr ""
+
+#: _apps/expenses/models.py:198
+msgid "Marketing"
+msgstr ""
+
+#: _apps/expenses/models.py:210
+msgid "Payed by"
+msgstr ""
+
+#: _apps/expenses/models.py:214
+msgid "Payed at"
+msgstr ""
+
+#: _apps/expenses/models.py:225
+msgid "incoming payment"
+msgstr ""
+
+#: _apps/expenses/models.py:226
+msgid "Incoming payments"
+msgstr ""
+
+#: _apps/feedback/apps.py:9
+msgid "Feedbacks"
+msgstr ""
+
+#: _apps/motivation/apps.py:8 _apps/motivation/models.py:118
+#: _apps/motivation/models.py:165 _apps/motivation/models.py:186
+#: _apps/motivation/models.py:213 applications/motivations/models.py:24
+#: applications/motivations/models.py:41 applications/motivations/models.py:60
+msgid "Motivation"
+msgstr ""
+
+#: _apps/motivation/models.py:26
+msgid "Cash motivation"
+msgstr ""
+
+#: _apps/motivation/models.py:29
+msgid "Collection motivation"
+msgstr ""
+
+#: _apps/motivation/models.py:33
+msgid "city motivation"
+msgstr ""
+
+#: _apps/motivation/models.py:34
+msgid "Cities motivation"
+msgstr ""
+
+#: _apps/motivation/models.py:56
+msgid "parlor motivation log"
+msgstr ""
+
+#: _apps/motivation/models.py:57
+msgid "Parlor motivation logs"
+msgstr ""
+
+#: _apps/motivation/models.py:78
+msgid "parlor collection motivation log"
+msgstr ""
+
+#: _apps/motivation/models.py:79
+msgid "Parlor collection motivation logs"
+msgstr ""
+
+#: _apps/motivation/models.py:89
+msgid "Mentor percent"
+msgstr ""
+
+#: _apps/motivation/models.py:94 _apps/reports/models.py:20
+#: _apps/salary/apps.py:7 _apps/salary/models.py:34
+msgid "Salary"
+msgstr ""
+
+#: _apps/motivation/models.py:100
+msgid "Percent for collection (directors only)"
+msgstr ""
+
+#: _apps/motivation/models.py:105
+msgid "Invite percent (jivosite only)"
+msgstr ""
+
+#: _apps/motivation/models.py:109
+msgid "Student percent (jivosite only)"
+msgstr ""
+
+#: _apps/motivation/models.py:117
+msgid "motivation"
+msgstr ""
+
+#: _apps/motivation/models.py:124
+msgid "Collection incoming categories"
+msgstr ""
+
+#: _apps/motivation/models.py:130
+msgid "Companion collection category"
+msgstr ""
+
+#: _apps/motivation/models.py:136
+msgid "Owner collection category"
+msgstr ""
+
+#: _apps/motivation/models.py:141
+msgid "Percent for over revenue"
+msgstr ""
+
+#: _apps/motivation/models.py:146
+msgid "Overfulfilment percent"
+msgstr ""
+
+#: _apps/motivation/models.py:152
+msgid "Sells overfulfilment"
+msgstr ""
+
+#: _apps/motivation/models.py:158 _apps/motivation/models.py:159
+msgid "Motivation settings"
+msgstr ""
+
+#: _apps/motivation/models.py:174 _apps/motivation/models.py:195
+msgid "Percent"
+msgstr ""
+
+#: _apps/motivation/models.py:179
+msgid "motivation from sell"
+msgstr ""
+
+#: _apps/motivation/models.py:180
+msgid "Motivation from sells"
+msgstr ""
+
+#: _apps/motivation/models.py:191 _apps/sessions/models.py:85
+msgid "Service"
+msgstr ""
+
+#: _apps/motivation/models.py:200 applications/motivations/base.py:44
+msgid "Invite percent"
+msgstr ""
+
+#: _apps/motivation/models.py:205
+msgid "motivation from sessions"
+msgstr ""
+
+#: _apps/motivation/models.py:206
+msgid "Motivation from sessions"
+msgstr ""
+
+#: _apps/motivation/models.py:222
+msgid "marketing plan"
+msgstr ""
+
+#: _apps/motivation/models.py:223
+msgid "Marketing plan"
+msgstr ""
+
+#: _apps/news/apps.py:7
+msgid "News"
+msgstr ""
+
+#: _apps/news/models.py:35
+msgid "article"
+msgstr ""
+
+#: _apps/news/models.py:36
+msgid "Articles"
+msgstr ""
+
+#: _apps/notifications/apps.py:7 _apps/notifications/models.py:46
+msgid "Notifications"
+msgstr ""
+
+#: _apps/notifications/models.py:11
+msgid "Not checked"
+msgstr ""
+
+#: _apps/notifications/models.py:12
+msgid "Approved"
+msgstr ""
+
+#: _apps/notifications/models.py:45
+msgid "notification"
+msgstr ""
+
+#: _apps/reports/apps.py:7
+msgid "Reports"
+msgstr ""
+
+#: _apps/reports/models.py:14
+msgid "Дата"
+msgstr ""
+
+#: _apps/reports/models.py:19
+msgid "Revenue"
+msgstr ""
+
+#: _apps/reports/models.py:21
+msgid "Expense"
+msgstr ""
+
+#: _apps/reports/models.py:22 _apps/salary/submodels/logs.py:16
+msgid "Remain"
+msgstr ""
+
+#: _apps/reports/models.py:25
+msgid "daily report"
+msgstr ""
+
+#: _apps/reports/models.py:26
+msgid "Daily reports"
+msgstr ""
+
+#: _apps/reports/models.py:46
+msgid "exception report"
+msgstr ""
+
+#: _apps/reports/models.py:47
+msgid "Exception reports"
+msgstr ""
+
+#: _apps/salary/models.py:22
+msgid "Promo"
+msgstr ""
+
+#: _apps/salary/models.py:25 _apps/store/models.py:261
+msgid "Sells"
+msgstr ""
+
+#: _apps/salary/models.py:29
+msgid "Last update"
+msgstr ""
+
+#: _apps/salary/models.py:33
+msgid "salary"
+msgstr ""
+
+#: _apps/salary/models.py:67
+msgid "withdraw"
+msgstr ""
+
+#: _apps/salary/models.py:68
+msgid "Withdraws"
+msgstr ""
+
+#: _apps/salary/submodels/logs.py:9 applications/notifications/models.py:66
+msgid "Timestamp"
+msgstr ""
+
+#: _apps/salary/submodels/logs.py:15
+msgid "Description"
+msgstr ""
+
+#: _apps/salary/submodels/logs.py:20 _apps/salary/submodels/logs.py:27
+msgid "balance log"
+msgstr ""
+
+#: _apps/salary/submodels/logs.py:21 _apps/salary/submodels/logs.py:28
+msgid "Balance logs"
+msgstr ""
+
+#: _apps/salary/submodels/logs.py:34
+msgid "promo log"
+msgstr ""
+
+#: _apps/salary/submodels/logs.py:35
+msgid "Promo logs"
+msgstr ""
+
+#: _apps/salary/submodels/logs.py:41
+msgid "sell log"
+msgstr ""
+
+#: _apps/salary/submodels/logs.py:42
+msgid "Sell logs"
+msgstr ""
+
+#: _apps/sessions/apps.py:8 _apps/sessions/models.py:111
+msgid "Sessions"
+msgstr ""
+
+#: _apps/sessions/models.py:28 applications/core/models.py:13
+msgid "Minimal price per hour"
+msgstr ""
+
+#: _apps/sessions/models.py:42 applications/core/models.py:35
+msgid "session type"
+msgstr ""
+
+#: _apps/sessions/models.py:43
+msgid "Session types"
+msgstr ""
+
+#: _apps/sessions/models.py:51
+msgid "Товар"
+msgstr ""
+
+#: _apps/sessions/models.py:54
+msgid "Количество"
+msgstr ""
+
+#: _apps/sessions/models.py:58
+msgid "session consumable withdraw"
+msgstr ""
+
+#: _apps/sessions/models.py:59
+msgid "Session consumables withdraw"
+msgstr ""
+
+#: _apps/sessions/models.py:88
+msgid "Session date"
+msgstr ""
+
+#: _apps/sessions/models.py:89
+msgid "Session time"
+msgstr ""
+
+#: _apps/sessions/models.py:91 applications/records/models.py:63
+msgid "Can come earlier?"
+msgstr ""
+
+#: _apps/sessions/models.py:94 applications/records/models.py:67
+msgid "Approximate time"
+msgstr ""
+
+#: _apps/sessions/models.py:101 applications/records/models.py:76
+msgid "Sketch"
+msgstr ""
+
+#: _apps/sessions/models.py:110
+msgid "session"
+msgstr ""
+
+#: _apps/sessions/models.py:127 _apps/store/models.py:361
+msgid "New"
+msgstr ""
+
+#: _apps/sessions/models.py:128
+msgid "In work"
+msgstr ""
+
+#: _apps/sessions/models.py:135 _apps/sessions/models.py:180
+#: _apps/sessions/models.py:280 _apps/sessions/models.py:303
+msgid "Session"
+msgstr ""
+
+#: _apps/sessions/models.py:146
+msgid "Status comment"
+msgstr ""
+
+#: _apps/sessions/models.py:150
+msgid "Status: in work"
+msgstr ""
+
+#: _apps/sessions/models.py:154
+msgid "Status: completed"
+msgstr ""
+
+#: _apps/sessions/models.py:158
+msgid "Status: canceled"
+msgstr ""
+
+#: _apps/sessions/models.py:170
+msgid "session status"
+msgstr ""
+
+#: _apps/sessions/models.py:171
+msgid "Session statuses"
+msgstr ""
+
+#: _apps/sessions/models.py:184
+msgid "Questionnaire ID"
+msgstr ""
+
+#: _apps/sessions/models.py:199
+msgid "Customer mark"
+msgstr ""
+
+#: _apps/sessions/models.py:203
+msgid "Administrator mark"
+msgstr ""
+
+#: _apps/sessions/models.py:228
+msgid "Продал заживляющее средство?"
+msgstr ""
+
+#: _apps/sessions/models.py:232
+msgid "Продал сувенир?"
+msgstr ""
+
+#: _apps/sessions/models.py:236
+msgid "Дал рекомендации?"
+msgstr ""
+
+#: _apps/sessions/models.py:240
+msgid "Рассказал про акции?"
+msgstr ""
+
+#: _apps/sessions/models.py:244
+msgid "Подарили акционный сертификат?"
+msgstr ""
+
+#: _apps/sessions/models.py:250
+msgid "For consumables"
+msgstr ""
+
+#: _apps/sessions/models.py:253
+msgid "session questionnaire"
+msgstr ""
+
+#: _apps/sessions/models.py:254
+msgid "Session questionnaires"
+msgstr ""
+
+#: _apps/sessions/models.py:273
+msgid "photo"
+msgstr ""
+
+#: _apps/sessions/models.py:274
+msgid "Photos"
+msgstr ""
+
+#: _apps/sessions/models.py:295
+msgid "session prepayment"
+msgstr ""
+
+#: _apps/sessions/models.py:296
+msgid "Session prepayments"
+msgstr ""
+
+#: _apps/sessions/models.py:307 _apps/store/models.py:184
+#: _apps/store/models.py:195 _apps/store/models.py:246
+#: applications/warehouse/models.py:74
+msgid "Item"
+msgstr ""
+
+#: _apps/sessions/models.py:320
+msgid "consumable"
+msgstr ""
+
+#: _apps/sessions/models.py:321
+msgid "Consumables"
+msgstr ""
+
+#: _apps/sessions/models.py:334
+msgid "logs"
+msgstr ""
+
+#: _apps/store/apps.py:8 _apps/store/models.py:49
+msgid "Store"
+msgstr ""
+
+#: _apps/store/models.py:31 _apps/store/models.py:32
+msgid "Store config"
+msgstr ""
+
+#: _apps/store/models.py:50
+msgid "Stores"
+msgstr ""
+
+#: _apps/store/models.py:61
+msgid "store cash log"
+msgstr ""
+
+#: _apps/store/models.py:62
+msgid "Store cash logs"
+msgstr ""
+
+#: _apps/store/models.py:93
+msgid "warehouse log"
+msgstr ""
+
+#: _apps/store/models.py:94
+msgid "Warehouse logs"
+msgstr ""
+
+#: _apps/store/models.py:104
+msgid "warehouse log item"
+msgstr ""
+
+#: _apps/store/models.py:105
+msgid "Warehouse log items"
+msgstr ""
+
+#: _apps/store/models.py:119
+msgid "warehouse expense"
+msgstr ""
+
+#: _apps/store/models.py:120
+msgid "Warehouse expenses"
+msgstr ""
+
+#: _apps/store/models.py:134 applications/warehouse/models.py:17
+msgid "item category"
+msgstr ""
+
+#: _apps/store/models.py:135
+msgid "Categories"
+msgstr ""
+
+#: _apps/store/models.py:146 applications/warehouse/models.py:34
+msgid "Units of measure"
+msgstr ""
+
+#: _apps/store/models.py:150
+msgid "Vendor code"
+msgstr ""
+
+#: _apps/store/models.py:154
+msgid "Цена закупки(опт)"
+msgstr ""
+
+#: _apps/store/models.py:158
+msgid "Цена продажи (заказ салона)"
+msgstr ""
+
+#: _apps/store/models.py:162
+msgid "Цена продажи в салонах"
+msgstr ""
+
+#: _apps/store/models.py:166
+msgid "Цена продажи VeAn Shop"
+msgstr ""
+
+#: _apps/store/models.py:171
+msgid "Наличие на складе"
+msgstr ""
+
+#: _apps/store/models.py:175
+msgid "Виртуальный склад"
+msgstr ""
+
+#: _apps/store/models.py:183 applications/warehouse/models.py:57
+msgid "item"
+msgstr ""
+
+#: _apps/store/models.py:200
+msgid "store item"
+msgstr ""
+
+#: _apps/store/models.py:201
+msgid "Store items"
+msgstr ""
+
+#: _apps/store/models.py:223
+msgid "Adding good"
+msgstr ""
+
+#: _apps/store/models.py:224
+msgid "Adding goods"
+msgstr ""
+
+#: _apps/store/models.py:238
+msgid "Seller"
+msgstr ""
+
+#: _apps/store/models.py:260
+msgid "sell"
+msgstr ""
+
+#: _apps/store/models.py:362
+msgid "Locked"
+msgstr ""
+
+#: _apps/store/models.py:363
+msgid "Exhibited Payment"
+msgstr ""
+
+#: _apps/store/models.py:366
+msgid "Sent"
+msgstr ""
+
+#: _apps/store/models.py:431
+msgid "Turned to store"
+msgstr ""
+
+#: _apps/students/apps.py:10 _apps/students/models.py:62
+msgid "Students"
+msgstr ""
+
+#: _apps/students/models.py:14 _apps/students/models.py:124
+msgid "Student"
+msgstr ""
+
+#: _apps/students/models.py:27
+msgid "Session Type"
+msgstr ""
+
+#: _apps/students/models.py:37
+msgid "Master percentage"
+msgstr ""
+
+#: _apps/students/models.py:40
+msgid "Invite percentage"
+msgstr ""
+
+#: _apps/students/models.py:43
+msgid "Diploma No."
+msgstr ""
+
+#: _apps/students/models.py:47
+msgid "Mentor"
+msgstr ""
+
+#: _apps/students/models.py:50
+msgid "Finished?"
+msgstr ""
+
+#: _apps/students/models.py:53
+msgid "Canceled?"
+msgstr ""
+
+#: _apps/students/models.py:57
+msgid "Finished at"
+msgstr ""
+
+#: _apps/students/models.py:61
+msgid "student"
+msgstr ""
+
+#: _apps/students/models.py:80
+msgid "student contract"
+msgstr ""
+
+#: _apps/students/models.py:81
+msgid "Student contracts"
+msgstr ""
+
+#: _apps/students/models.py:91
+msgid "student sketch"
+msgstr ""
+
+#: _apps/students/models.py:92
+msgid "Student sketches"
+msgstr ""
+
+#: _apps/students/models.py:109
+msgid "student payment"
+msgstr ""
+
+#: _apps/students/models.py:110
+msgid "Student payments"
+msgstr ""
+
+#: _apps/students/models.py:133
+msgid "Review"
+msgstr ""
+
+#: _apps/students/models.py:135
+msgid "Mark"
+msgstr ""
+
+#: _apps/students/models.py:138
+msgid "student review"
+msgstr ""
+
+#: _apps/students/models.py:139
+msgid "Student review"
+msgstr ""
+
+#: _apps/tasks/apps.py:9
+msgid "Tasks"
+msgstr ""
+
+#: markup/templates/admin/edit_inline/compact.html:3
+msgid "Remove"
+msgstr ""
+
+#: markup/templates/admin/edit_inline/compact.html:13
+#, python-format
+msgid "Add another %(verbose_name)s"
+msgstr ""
+
+#: markup/templates/admin/edit_inline/compact.html:39
+msgid "Change"
+msgstr ""
+
+#: markup/templates/admin/edit_inline/compact.html:45
+msgid "View on site"
+msgstr ""
+
+#: markup/templates/rangefilter/date_filter.html:2
+#: markup/templates/rangefilter/date_filter.html:16
+#, python-format
+msgid " By %(filter_title)s "
+msgstr ""
+
+#: markup/templates/rangefilter/date_filter.html:33
+msgid "Search"
+msgstr ""
+
+#: markup/templates/rangefilter/date_filter.html:34
+msgid "Reset"
+msgstr ""
+
+#: shared/models/transaction.py:84
+msgid "Withdraw"
+msgstr ""
+
+#: shared/models/transaction.py:85
+msgid "Deposit"
+msgstr ""
+
+#: shared/models/transaction.py:103
+msgid "Transaction code"
+msgstr ""
+
+#: shared/models/transaction.py:108
+msgid "Transaction type"
+msgstr ""
+
+#: shared/models/transaction.py:132
+msgid "Reference"
+msgstr ""
+
+#: app/settings/default.py:234
+msgid "Russian"
+msgstr ""
+
+#: applications/accounts/admin.py:76
+msgid "Motivation control"
+msgstr ""
+
+#: applications/accounts/admin.py:81 applications/parlors/admin.py:18
+msgid "Transactions"
+msgstr ""
+
+#: applications/accounts/admin.py:86
+msgid "Fines"
+msgstr "Штрафы"
+
+#: applications/accounts/admin.py:91
+msgid "Bounties"
+msgstr ""
+
+#: applications/accounts/models.py:35
+msgid "group"
+msgstr ""
+
+#: applications/accounts/models.py:36
+msgid "groups"
+msgstr ""
+
+#: applications/accounts/models.py:78
+msgid "Заблокирован"
+msgstr ""
+
+#: applications/accounts/models.py:140
+msgid "Is active?"
+msgstr ""
+
+#: applications/accounts/models.py:194
+msgid "Month"
+msgstr ""
+
+#: applications/accounts/models.py:200
+msgid "Year"
+msgstr ""
+
+#: applications/accounts/models.py:248
+msgid "Status change reason"
+msgstr ""
+
+#: applications/accounts/models.py:401
+msgid "From"
+msgstr ""
+
+#: applications/accounts/models.py:404
+msgid "To"
+msgstr ""
+
+#: applications/accounts/models.py:409
+msgid "weekends"
+msgstr ""
+
+#: applications/accounts/serializers.py:151
+msgid "Укажите причину отмены."
+msgstr ""
+
+#: applications/broadcasts/models.py:22
+msgid "Verification sms template"
+msgstr ""
+
+#: applications/broadcasts/models.py:32
+msgid "broadcast configuration"
+msgstr ""
+
+#: applications/broadcasts/models.py:45
+msgid "Verification code"
+msgstr ""
+
+#: applications/broadcasts/models.py:50
+msgid "Code generated at"
+msgstr ""
+
+#: applications/broadcasts/models.py:55
+msgid "Phone confirmed?"
+msgstr ""
+
+#: applications/broadcasts/models.py:60
+msgid "phone number"
+msgstr ""
+
+#: applications/broadcasts/models.py:61
+msgid "phone numbers"
+msgstr ""
+
+#: applications/core/models.py:17
+msgid ""
+"\n"
+"            Если установить эту сумму, система посчитает количество часов,\n"
+"            затраченных на сеанс и сравнит с стоимостью. <br>\n"
+"            При несоответствии - создаст <u>исключение</u> в журнал. <br>\n"
+"            Чтобы не включать эту опцию - оставьте <b>0</b> в поле.\n"
+"        "
+msgstr ""
+
+#: applications/core/models.py:26
+msgid ""
+"\n"
+"            Если включить эту опцию - нельзя будет начать второй сеанс при активном сеанса этого типа.\n"
+"        "
+msgstr ""
+
+#: applications/core/models.py:36
+msgid "session types"
+msgstr ""
+
+#: applications/core/models.py:50
+msgid "fine types"
+msgstr "типы штрафов"
+
+#: applications/core/models.py:63
+msgid "bounty type"
+msgstr ""
+
+#: applications/core/models.py:64
+msgid "bounty types"
+msgstr ""
+
+#: applications/core/models.py:77
+msgid "find out type"
+msgstr ""
+
+#: applications/core/models.py:78
+msgid "find out types"
+msgstr ""
+
+#: applications/customers/models.py:51
+msgid "Birth date"
+msgstr ""
+
+#: applications/customers/models.py:63
+msgid "customers"
+msgstr ""
+
+#: applications/motivations/apps.py:8
+msgid "Motivations"
+msgstr ""
+
+#: applications/motivations/base.py:21
+msgid "Updated by"
+msgstr ""
+
+#: applications/motivations/base.py:30
+msgid "Base percent"
+msgstr ""
+
+#: applications/motivations/base.py:61 applications/motivations/models.py:108
+msgid "Session type"
+msgstr ""
+
+#: applications/motivations/base.py:75
+msgid ""
+"Сумма базового процента и процента за приглашение не должна превышать 100."
+msgstr ""
+
+#: applications/motivations/models.py:32
+msgid "session motivation"
+msgstr ""
+
+#: applications/motivations/models.py:33
+msgid "session motivations"
+msgstr ""
+
+#: applications/motivations/models.py:51
+msgid "education motivation"
+msgstr ""
+
+#: applications/motivations/models.py:52
+msgid "education motivations"
+msgstr ""
+
+#: applications/motivations/models.py:67
+#: applications/motivations/models.py:143
+msgid "Sell category"
+msgstr ""
+
+#: applications/motivations/models.py:76
+msgid "store motivation"
+msgstr ""
+
+#: applications/motivations/models.py:77
+msgid "store motivations"
+msgstr ""
+
+#: applications/motivations/models.py:93
+msgid "Purpose"
+msgstr ""
+
+#: applications/motivations/models.py:98 applications/parlors/models.py:65
+msgid "transaction"
+msgstr ""
+
+#: applications/motivations/models.py:99 applications/parlors/models.py:66
+msgid "transactions"
+msgstr ""
+
+#: applications/motivations/models.py:113
+msgid "default session motivation"
+msgstr ""
+
+#: applications/motivations/models.py:114
+msgid "default sessions motivation"
+msgstr ""
+
+#: applications/motivations/models.py:123
+msgid "Education type"
+msgstr ""
+
+#: applications/motivations/models.py:128
+msgid "default education motivation"
+msgstr ""
+
+#: applications/motivations/models.py:129
+msgid "default educations motivation"
+msgstr ""
+
+#: applications/motivations/models.py:151
+msgid "default sell motivation"
+msgstr ""
+
+#: applications/motivations/models.py:152
+msgid "default sells motivation"
+msgstr ""
+
+#: applications/notifications/models.py:14
+msgid "Level"
+msgstr ""
+
+#: applications/notifications/models.py:24
+msgid "Recipient"
+msgstr ""
+
+#: applications/notifications/models.py:39
+msgid "Verb"
+msgstr ""
+
+#: applications/parlors/models.py:21
+msgid "Certificate prefix"
+msgstr ""
+
+#: applications/parlors/models.py:23
+msgid ""
+"Max 8 symbols. E.g. if prefix is equal to 'UA', certificate number will be "
+"like: UA000001."
+msgstr ""
+
+#: applications/parlors/models.py:28
+msgid "parlors"
+msgstr ""
+
+#: applications/records/models.py:46
+msgid "Performer"
+msgstr ""
+
+#: applications/records/models.py:53
+msgid "Record type"
+msgstr ""
+
+#: applications/records/models.py:60
+msgid "Time"
+msgstr ""
+
+#: applications/records/models.py:72
+msgid "Comment"
+msgstr ""
+
+#: applications/records/models.py:87
+msgid "Can change session time"
+msgstr ""
+
+#: applications/records/models.py:88
+msgid "Can cancel session"
+msgstr ""
+
+#: applications/records/models.py:89
+msgid "Can start session"
+msgstr ""
+
+#: applications/records/models.py:90
+msgid "Can finish session"
+msgstr ""
+
+#: applications/records/models.py:92
+msgid "record"
+msgstr ""
+
+#: applications/records/models.py:93
+msgid "records"
+msgstr ""
+
+#: applications/records/models.py:105
+msgid "Record"
+msgstr ""
+
+#: applications/records/models.py:130
+msgid "Can cancel prepayment"
+msgstr ""
+
+#: applications/records/models.py:132
+msgid "prepayment"
+msgstr ""
+
+#: applications/records/models.py:133
+msgid "prepayments"
+msgstr ""
+
+#: applications/warehouse/apps.py:8
+msgid "Warehouse"
+msgstr ""
+
+#: applications/warehouse/models.py:18
+msgid "item categories"
+msgstr ""
+
+#: applications/warehouse/models.py:39
+msgid "Цена закупки"
+msgstr ""
+
+#: applications/warehouse/models.py:46
+msgid "Цена продажи"
+msgstr ""
+
+#: applications/warehouse/models.py:58
+msgid "items"
+msgstr ""
+
+#: applications/warehouse/models.py:85
+msgid "warehouse"
+msgstr ""
+
+#: applications/warehouse/models.py:86
+msgid "warehouses"
+msgstr ""

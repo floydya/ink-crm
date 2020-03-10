@@ -1,0 +1,18 @@
+version: '3.7'
+
+x-common-variables: &common-variables
+  DJANGO_DEBUG: "True"
+  DJANGO_SSL: "False"
+
+services:
+
+  caddy:
+    image: abiosoft/caddy:no-stats
+    environment:
+      - SERVER_NAME=demo.ink
+
+  backend:
+    build: ./server
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - ./server:/home/app/web

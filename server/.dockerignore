@@ -1,0 +1,11 @@
+celerybeat.pid
+celerybeat-schedule
+*/__pycache__/*
+*/*/__pycache__/*
+*/*/*/__pycache__/*
+*/uploads/*
+*/*/uploads/*
+*/*/*/uploads/*
+*/static/*
+*/*/static/*
+*/*/*/static/*
