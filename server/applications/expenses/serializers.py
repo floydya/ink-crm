@@ -1,4 +1,5 @@
 from django.conf import settings
+from djmoney.money import Money
 
 from rest_framework import serializers
 from djmoney.contrib.django_rest_framework.fields import MoneyField
@@ -54,6 +55,23 @@ class ExpenseSerializer(serializers.ModelSerializer):
             'image',
             'payed_amount',
         )
+
+    def validate(self, attrs):
+
+        if self.context['request'].method == "PATCH":
+            if (payed_amount := attrs.get('payed_amount', None)) is not None:
+                already_payed = Money(self.instance.payed_amount, settings.DEFAULT_CURRENCY)
+                if payed_amount + already_payed > self.instance.amount:
+                    raise serializers.ValidationError(
+                        {'payed_amount': "Нельзя оплатить больше суммы платежа!"}
+                    )
+
+        return attrs
+
+    def update(self, instance: Expense, validated_data):
+        if (payed_amount := validated_data.get('payed_amount', None)) is not None:
+            return instance.add_payment(payed_amount, self.context['request'].user)
+        return super(ExpenseSerializer, self).update(instance, validated_data)
     
     def create(self, validated_data):
         validated_data['created_by'] = self.context['request'].user

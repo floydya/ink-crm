@@ -88,7 +88,7 @@ class Expense(models.Model):
     def add_payment(self, amount, created_by=None):
         Transaction.create_transaction(
             transaction_purpose_pk=self.parlor.id,
-            amount=amount,
+            amount=-amount,
             created_by=created_by,
             reference=f"Оплата расхода №{self.id}",
             entity_object=self

@@ -13,7 +13,7 @@ class ExpenseManager(models.Manager):
         transaction_subquery = Transaction.objects.filter(
             entity_type__pk=ctype.id,
             entity_id=models.OuterRef('pk'),
-        ).annotate(total=models.Sum('amount')).values('total')
+        ).values('entity_id').annotate(total=models.Sum('amount')).values('total')
         return super(ExpenseManager, self).get_queryset().annotate(
             payed_amount=models.Func(models.Subquery(transaction_subquery), function='ABS')
         )
