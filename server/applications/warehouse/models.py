@@ -167,9 +167,7 @@ class Consumable(models.Model):
 
     @classmethod
     def create_consumable(cls, record, item, value, created_by=None):
-
         with transaction.atomic():
-
             instance = cls.objects.create(
                 record=record,
                 item=item,
@@ -182,5 +180,9 @@ class Consumable(models.Model):
 
     @transaction.atomic
     def update_warehouse(self, old_value):
-        Warehouse.get_by_parlor(record.parlor, item, queryset=True).update(value=F('value') + old_value - self.value)
+        Warehouse.get_by_parlor(
+            self.record.parlor, self.item, queryset=True
+        ).update(
+            value=F('value') + old_value - self.value
+        )
         return self

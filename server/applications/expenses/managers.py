@@ -1,5 +1,6 @@
 from django.contrib.contenttypes.models import ContentType
 from django.db import models, transaction
+from django.db.models.functions import Coalesce
 
 from applications.parlors.models import Transaction
 
@@ -15,14 +16,17 @@ class ExpenseManager(models.Manager):
             entity_id=models.OuterRef('pk'),
         ).values('entity_id').annotate(total=models.Sum('amount')).values('total')
         return super(ExpenseManager, self).get_queryset().annotate(
-            payed_amount=models.Func(models.Subquery(transaction_subquery), function='ABS')
+            payed_amount=models.functions.Coalesce(
+                models.Func(models.Subquery(transaction_subquery), function='ABS'),
+                0
+            )
         )
 
     @transaction.atomic
     def create(self, **kwargs):
         payed_amount = kwargs.pop('payed_amount', None)
         instance = super(ExpenseManager, self).create(**kwargs)
-        if payed_amount is not None:
+        if payed_amount:
             Transaction.create_transaction(
                 transaction_purpose_pk=instance.parlor.id,
                 amount=-payed_amount,

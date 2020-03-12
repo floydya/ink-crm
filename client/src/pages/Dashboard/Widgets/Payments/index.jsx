@@ -1,4 +1,4 @@
-import React, { Fragment } from "react"
+import React, { Fragment, useEffect } from "react"
 import { useCurrentProfile } from "shared/hooks/currentUser"
 import { Button, Table, PageLoader, PageError } from "shared/components"
 import useApi from "shared/hooks/api"
@@ -6,12 +6,12 @@ import NoResults from "shared/components/NoResults"
 import { formatDateTime } from "shared/utils/dateTime"
 import { useModalStateHelper } from "pages/Home/components/shared"
 import Modal from "shared/components/Modal"
-import Form from "shared/components/Form"
-import { ActionButton, Actions, FormElement } from "pages/Authentication/Styles"
+import pubsub from "sweet-pubsub"
+import { UpdateExpense, CreateExpense } from "pages/Dashboard/Widgets/Payments/Forms"
+
 
 const PaymentActions = ({ payment }) => {
   const payModalHelper = useModalStateHelper()
-  const [{isUpdating}, paymentUpdate] = useApi.patch(`/expenses/${payment.id}/`)
 
   return <div>
     <Button icon="pay" variant="secondary" onClick={payModalHelper.open}>
@@ -22,43 +22,7 @@ const PaymentActions = ({ payment }) => {
         isOpen
         withCloseIcon={false}
         onClose={payModalHelper.close}
-        renderContent={({close}) => (
-          <Form
-            initialValues={{
-              payed_amount: "",
-            }}
-            validations={{
-              payed_amount: Form.is.required()
-            }}
-            onSubmit={async (values, form) => {
-              try {
-                await paymentUpdate(values)
-                await close()
-              } catch (error) {
-                Form.handleAPIError(error, form)
-              }
-            }}
-          >
-            <FormElement>
-              <Form.Field.Input
-                type="number"
-                name="payed_amount"
-                label="Сумма текущей транзакции"
-                tip={(
-                  <span>Осталось оплатить: {payment.amount - payment.payed_amount}.</span>
-                )}
-              />
-              <Actions>
-                <ActionButton variant="primary" isWorking={isUpdating} type="submit">
-                  Оплатить
-                </ActionButton>
-                <ActionButton variant="secondary" disabled={isUpdating} type="button" onClick={close}>
-                  Отменить
-                </ActionButton>
-              </Actions>
-            </FormElement>
-          </Form>
-        )}
+        renderContent={({ close }) => (<UpdateExpense payment={payment} modalClose={close} />)}
       />
     )}
   </div>
@@ -94,7 +58,7 @@ const columns = [
   },
   {
     Header: "",
-    accessor: "id",
+    id: "actions",
     Cell: ({ cell: { row: { original } } }) => (<PaymentActions payment={original} />),
     className: "text-right"
   }
@@ -102,11 +66,17 @@ const columns = [
 
 const Payments = () => {
   const profile = useCurrentProfile()
-  const [{ isLoading, error, data }] = useApi.get(
+  const createExpenseModalHelper = useModalStateHelper()
+  const [{ isLoading, error, data }, fetchPayments] = useApi.get(
     `/expenses/`,
     { parlor: profile?.parlor?.id, unpayed: true },
     { mountFetch: true }
   )
+
+  useEffect(() => {
+    pubsub.on("fetch-payments", fetchPayments)
+    return () => pubsub.off("fetch-payments", fetchPayments)
+  })
 
   if (isLoading) return <PageLoader />
   if (error) return <PageError />
@@ -115,7 +85,7 @@ const Payments = () => {
     <Fragment>
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
         <h4>Неоплаченные платежи</h4>
-        <Button variant="secondary" icon="plus-square">
+        <Button variant="secondary" icon="plus-square" onClick={createExpenseModalHelper.open}>
           Добавить расход/платеж
         </Button>
       </div>
@@ -123,6 +93,15 @@ const Payments = () => {
         ? <Table columns={columns} data={data} />
         : <NoResults title="Платежи отсутствуют" />
       }
+      {createExpenseModalHelper.isOpen() && (
+        <Modal
+          isOpen
+          withCloseIcon={false}
+          onClose={createExpenseModalHelper.close}
+          width={600}
+          renderContent={({ close }) => <CreateExpense modalClose={close} />}
+        />
+      )}
     </Fragment>
   )
 }

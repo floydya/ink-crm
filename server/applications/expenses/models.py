@@ -15,7 +15,7 @@ __all__ = 'Expense',
 
 class Expense(models.Model):
 
-    payed_amount: 'Money'
+    payed_amount: Money
 
     created_at = models.DateTimeField(
         _("Created at"),

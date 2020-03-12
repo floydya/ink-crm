@@ -29,7 +29,8 @@ class ExpenseSerializer(serializers.ModelSerializer):
         serializer=ParlorSerializer
     )
     image = Base64ImageField(
-        required=False
+        required=False,
+        allow_null=True,
     )
     amount = MoneyField(
         max_digits=14, 
@@ -75,4 +76,7 @@ class ExpenseSerializer(serializers.ModelSerializer):
     
     def create(self, validated_data):
         validated_data['created_by'] = self.context['request'].user
-        return super(ExpenseSerializer, self).create(validated_data)
+
+        instance = super(ExpenseSerializer, self).create(validated_data)
+        setattr(instance, 'payed_amount', validated_data.get('payed_amount', None))
+        return instance
