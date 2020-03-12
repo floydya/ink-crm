@@ -5,8 +5,8 @@ import { Form } from "../../../shared/components"
 import { ActionButton, Actions, FormElement, FormHeading } from "../../Authentication/Styles"
 import useApi from "../../../shared/hooks/api"
 import moment from "moment"
-import { getBase64 } from "../../../shared/utils/base64"
 import history from "../../../history"
+import { getAPIValues } from "shared/components/FileInput"
 
 const CreateRecord = () => {
   const { customerId } = useParams()
@@ -50,7 +50,7 @@ const CreateRecord = () => {
           performer: values.performer,
           approximate_time: values.approximate_time || null,
           comment: values.comment,
-          ...values.sketch?.files?.length && {sketch: await getBase64(values.sketch.files[0])},
+          sketch: getAPIValues(values.sketch),
           prepayment: values.prepayment || null,
           customer: customerId,
           parlor: profile.parlor.id,

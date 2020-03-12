@@ -52,7 +52,8 @@ const fontIconCodes = {
   [`info`]: '\\ef4e',
   [`warning`]: '\\f025',
   [`user`]: '\\ecff',
-  [`edit`]: '\\ef10'
+  [`edit`]: '\\ef10',
+  [`pay`]: '\\efb7',
 };
 
 const propTypes = {

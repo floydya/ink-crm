@@ -23,9 +23,17 @@ class SessionTypeAdmin(TypicalCoreAdmin):
     inlines = [DefaultSessionMotivationInline, DefaultEducationMotivationInline, DefaultConsumableInline]
 
 
+@admin.register(ExpenseType)
+class ExpenseTypeAdmin(TypicalCoreAdmin):
+
+    def has_delete_permission(self, request, obj=None):
+        if obj and obj.slug:
+            return False
+        return super(ExpenseTypeAdmin, self).has_delete_permission(request, obj)
+
+
 admin.site.register([
     FineType,
     FindOutType,
-    BountyType,
-    ExpenseType
+    BountyType
 ], TypicalCoreAdmin)

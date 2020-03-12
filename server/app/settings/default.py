@@ -305,7 +305,8 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.SessionAuthentication',
         'rest_framework.authentication.BasicAuthentication',
     ),
-    'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema'
+    'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema',
+    'EXCEPTION_HANDLER': 'shared.exception.custom_exception_handler'
 }
 
 JWT_AUTH = {
@@ -317,7 +318,7 @@ JWT_AUTH = {
     # 'JWT_RESPONSE_PAYLOAD_HANDLER': 'shared.jwt_handler.jwt_response_payload_handler',
 }
 
-DATA_UPLOAD_MAX_NUMBER_FIELDS = 10240
+DATA_UPLOAD_MAX_NUMBER_FIELDS = 1024
 
 FILTERS_NULL_CHOICE_LABEL = True
 DEFAULT_CURRENCY = "UAH"

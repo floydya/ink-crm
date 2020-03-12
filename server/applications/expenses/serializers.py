@@ -1,9 +1,8 @@
 from django.conf import settings
-from django.core.validators import MinValueValidator
+from djmoney.money import Money
 
 from rest_framework import serializers
 from djmoney.contrib.django_rest_framework.fields import MoneyField
-from djmoney.money import Money
 from drf_base64.fields import Base64ImageField
 
 from applications.accounts.base_serializers import UsernameSerializer
@@ -30,7 +29,8 @@ class ExpenseSerializer(serializers.ModelSerializer):
         serializer=ParlorSerializer
     )
     image = Base64ImageField(
-        required=False
+        required=False,
+        allow_null=True,
     )
     amount = MoneyField(
         max_digits=14, 
@@ -56,14 +56,27 @@ class ExpenseSerializer(serializers.ModelSerializer):
             'image',
             'payed_amount',
         )
+
+    def validate(self, attrs):
+
+        if self.context['request'].method == "PATCH":
+            if (payed_amount := attrs.get('payed_amount', None)) is not None:
+                already_payed = Money(self.instance.payed_amount, settings.DEFAULT_CURRENCY)
+                if payed_amount + already_payed > self.instance.amount:
+                    raise serializers.ValidationError(
+                        {'payed_amount': "Нельзя оплатить больше суммы платежа!"}
+                    )
+
+        return attrs
+
+    def update(self, instance: Expense, validated_data):
+        if (payed_amount := validated_data.get('payed_amount', None)) is not None:
+            return instance.add_payment(payed_amount, self.context['request'].user)
+        return super(ExpenseSerializer, self).update(instance, validated_data)
     
     def create(self, validated_data):
-        return Expense.create_expense(
-            parlor=validated_data.get('parlor'),
-            type=validated_data.get('type'),
-            amount=validated_data.get('amount'),
-            payed_amount=validated_data.get('payed_amount'),
-            note=validated_data.get('note'),
-            image=validated_data.get('image', None),
-            created_by=self.context['request'].user
-        )
+        validated_data['created_by'] = self.context['request'].user
+
+        instance = super(ExpenseSerializer, self).create(validated_data)
+        setattr(instance, 'payed_amount', validated_data.get('payed_amount', None))
+        return instance

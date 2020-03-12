@@ -71,7 +71,6 @@ class TransactionMixin(models.Model):
 
 
 class AbstractTransaction(models.Model):
-
     # @property
     # def purpose_model(self):
     #     raise NotImplementedError
@@ -137,6 +136,13 @@ class AbstractTransaction(models.Model):
         abstract = True
 
     @classmethod
+    def aggregate_sum(cls, purpose):
+        total = cls.objects.select_for_update().filter(purpose=purpose).aggregate(
+            total=models.Sum('amount')
+        ).get('total', 0) or 0
+        return Money(total, settings.DEFAULT_CURRENCY)
+
+    @classmethod
     def create_transaction(
             cls,
             transaction_purpose_pk,
@@ -147,9 +153,10 @@ class AbstractTransaction(models.Model):
     ):
 
         purpose_obj = cls.purpose_model.objects.select_for_update().filter(pk=transaction_purpose_pk).first()
-
+        total = cls.aggregate_sum(purpose_obj)
+        assert total + amount >= Money(0, settings.DEFAULT_CURRENCY), "Not enough money!"
         assert purpose_obj is not None, "Purpose object is not found"
-        assert amount != Money(0), "Amount should be not zero"
+        assert amount != Money(0, settings.DEFAULT_CURRENCY), "Amount should be not zero"
 
         with transaction.atomic():
 

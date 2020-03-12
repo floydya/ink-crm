@@ -95,7 +95,10 @@ class RecordSerializer(serializers.ModelSerializer):
         queryset=SessionType.objects.all(),
         model=SessionType,
     )
-    sketch = Base64ImageField(required=False, allow_null=True)
+    sketch = Base64ImageField(
+        required=False,
+        allow_null=True
+    )
     prepayments = PrepaymentSerializer(many=True, read_only=True)
     prepayment = MoneyField(
         write_only=True,
