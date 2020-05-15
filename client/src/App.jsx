@@ -1,21 +1,16 @@
 import React, { useContext, useEffect } from "react"
 import { Route, Redirect, Switch, useLocation } from "react-router-dom"
-import { ProjectPage } from "./layout/Styles"
 import useApi from "./shared/hooks/api"
-import { PageLoader, Modal } from "./shared/components"
+import { PageLoader } from "./shared/components"
 import { authenticationActions } from "./store/actions"
-import { createQueryParamModalHelpers } from "./shared/utils/queryParamModal"
 import pubsub from "sweet-pubsub"
 import { AuthenticationContext } from "./services/authentication.service"
 import CreateRecord from "./pages/Records/Create"
 import RecordDetail from "./pages/Records/Detail"
 import Dashboard from "pages/Dashboard"
+import Layout from "./layouts/index.jsx"
 
 const HomePage = React.lazy(() => import("./pages/Home"))
-const NavbarLeft = React.lazy(() => import("./layout/NavbarLeft"))
-const Sidebar = React.lazy(() => import("./layout/Sidebar"))
-const Notifications = React.lazy(() => import("./layout/Notifications"))
-const Settings = React.lazy(() => import("./layout/Settings"))
 const Profile = React.lazy(() => import("./pages/Profile"))
 const Motivation = React.lazy(() => import("./pages/Profile/Motivation"))
 const Employees = React.lazy(() => import("./pages/Employees"))
@@ -25,11 +20,6 @@ const CustomerDetail = React.lazy(() => import("./pages/Customer/Detail"))
 
 const App = () => {
   const { pathname } = useLocation()
-
-  const notificationsModalHelpers = createQueryParamModalHelpers(
-    "notifications"
-  )
-  const settingsModalHelpers = createQueryParamModalHelpers("settings")
 
   const { dispatch, loggedIn: isAuthenticated } = useContext(
     AuthenticationContext
@@ -54,39 +44,7 @@ const App = () => {
   if (!data) return <PageLoader />
 
   return (
-    <ProjectPage id="container">
-      <NavbarLeft
-        notificationsModalOpen={notificationsModalHelpers.open}
-        settingsModalOpen={settingsModalHelpers.open}
-      />
-      <Sidebar />
-
-      {notificationsModalHelpers.isOpen() && (
-        <Modal
-          isOpen
-          testid="modal:notifications"
-          variant="aside"
-          width={600}
-          onClose={notificationsModalHelpers.close}
-          renderContent={({ $scrollOverlayRef, $clickableOverlayRef }) => (
-            <Notifications
-              $scrollOverlayRef={$scrollOverlayRef}
-              $clickableOverlayRef={$clickableOverlayRef}
-            />
-          )}
-        />
-      )}
-
-      {settingsModalHelpers.isOpen() && (
-        <Modal
-          isOpen
-          testid="modal:settings"
-          width={1200}
-          withCloseIcon={true}
-          onClose={settingsModalHelpers.close}
-          renderContent={modal => <Settings modalClose={modal.close} />}
-        />
-      )}
+    <Layout>
       <React.Suspense fallback={<PageLoader />}>
         <Switch>
           <Route path="/home" render={() => <HomePage />} />
@@ -106,7 +64,7 @@ const App = () => {
           <Redirect to="/home" />
         </Switch>
       </React.Suspense>
-    </ProjectPage>
+    </Layout>
   )
 }
 

@@ -1,13 +1,10 @@
 import React from "react"
 import ReactDOM from "react-dom"
 import { Route, Switch, Redirect, Router } from "react-router-dom"
-
+import 'antd/dist/antd.dark.less';
 import "moment/locale/ru"
 import history from "./history"
 
-import NormalizeStyles from "./layout/NormalizeStyles"
-import BaseStyles from "./layout/BaseStyles"
-import Toast from "./components/Toast"
 import AuthenticationProvider from "./services/authentication.service"
 // import * as Sentry from "@sentry/browser"
 // if (process.env.NODE_ENV && process.env.NODE_ENV !== "development") {
@@ -22,7 +19,6 @@ import AuthenticationProvider from "./services/authentication.service"
 //   })
 // }
 
-import "./assets/fonts.css"
 import { PageLoader } from "./shared/components"
 
 const App = React.lazy(() => import("./App"))
@@ -33,9 +29,6 @@ ReactDOM.render(
   <React.Suspense fallback={<PageLoader />}>
     <AuthenticationProvider>
       <Router history={history}>
-        <NormalizeStyles />
-        <BaseStyles />
-        <Toast />
         <Switch>
           <Route path="/login" exact render={props => <Authentication {...props} />} />
           <Route path="/" render={props => <App {...props} />} />
