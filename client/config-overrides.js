@@ -1,17 +1,20 @@
-const { useBabelRc, override, addLessLoader } = require("customize-cra")
-const lessToJs = require('less-vars-to-js')
-const fs = require('fs');
-
-const paletteLess = fs.readFileSync('./node_modules/antd/es/style/themes/dark.less', 'utf8');
-const palette = lessToJs(paletteLess, {resolveVariables: true, stripPrefix: true});
+const { useBabelRc, override, addLessLoader, fixBabelImports } = require("customize-cra")
+const { getThemeVariables } = require("antd/dist/theme")
 
 module.exports = override(
   useBabelRc(),
+  fixBabelImports("antd", {
+    libraryDirectory: "es",
+    style: true
+  }),
   addLessLoader({
-    javascriptEnabled: true,
     modifyVars: {
-      ...palette,
-      "@primary-color": "#00ff00"
-    }
+      ...getThemeVariables({
+        dark: true,
+        compact: true
+      }),
+      "@primary-color": "#fa541c"
+    },
+    javascriptEnabled: true
   })
 )

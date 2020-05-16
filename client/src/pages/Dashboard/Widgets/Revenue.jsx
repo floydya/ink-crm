@@ -2,8 +2,9 @@ import React, { useMemo, Fragment } from "react";
 import moment from "moment";
 import { formatDateTimeForAPI } from "shared/utils/dateTime";
 import useApi from "shared/hooks/api";
-import { PageLoader, PageError, Icon } from "shared/components";
+import { PageError, Icon } from "shared/components";
 import { useCurrentProfile } from "shared/hooks/currentUser";
+import { PageLoading } from "@ant-design/pro-layout"
 
 const RevenueWidget = () => {
   const profile = useCurrentProfile()
@@ -50,7 +51,7 @@ const RevenueWidget = () => {
     }),
     [counterData]
   );
-  if (isLoading) return <PageLoader />;
+  if (isLoading) return <PageLoading tip={"Загрузка..."} />;
   if (error) return <PageError />;
   return (
     <Fragment>

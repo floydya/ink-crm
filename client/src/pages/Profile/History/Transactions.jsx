@@ -1,101 +1,74 @@
-import React, { Fragment, useMemo } from "react";
-import { formatMoney } from "../../../shared/utils/moneyFormat";
-import { formatDateTime } from "../../../shared/utils/dateTime";
-import { capitalize } from "../../../shared/utils/string";
-import { Icon, Modal } from "../../../shared/components";
-import { useModalStateHelper } from "../../Home/components/shared";
-import Payment from "../../../components/Payment";
-import history from "../../../history";
+import React, { useContext, useMemo, useState } from "react"
+import { formatMoney } from "shared/utils/moneyFormat"
+import { formatDateTime, formatDateTimeForAPI } from "shared/utils/dateTime"
+import { capitalize } from "shared/utils/string"
+import moment from "moment"
+import useApi from "shared/hooks/api"
+import groupBy from "lodash/groupBy"
+import { DatePicker, Table } from "antd"
+import ProfileContext from "pages/Profile/context"
 
-const TransactionEntity = ({ transaction }) => {
-  const transactionModalAvailable = useMemo(
-    () => ["fine", "bounty"].includes(transaction.entity__type),
-    [transaction.entity__type]
-  );
-  const modalHelper = useModalStateHelper();
+const getDateAndTotalsFromTransactions = (transactions) => {
+  const grouped = groupBy(transactions, el => moment(el.created_at).format("YYYY-MM-DD"))
+  const groups = Object.entries(grouped)
+    .map(([date, entries]) => ({ date, total: entries.reduce((acc, next) => acc + parseFloat(next.amount), 0.) }))
+    .sort((a, b) => moment(b.date).diff(moment(a.date)))
+  const getGroup = (date) => (grouped[date]).sort((a, b) => moment(b.created_at).diff(moment(a.created_at)))
+  return [groups, getGroup]
+}
+
+const Transactions = () => {
+  const { profile } = useContext(ProfileContext)
+  const [dates, setDates] = useState([
+    moment().startOf("month"),
+    moment().endOf("month")
+  ])
+  const [{ isLoading, data }] = useApi.get(`/transactions/`, {
+    created_at_after: formatDateTimeForAPI(dates[0]),
+    created_at_before: formatDateTimeForAPI(dates[1]),
+    purpose_id: profile.id
+  }, { mountFetch: true })
+  const [groups, getGroup] = useMemo(() => getDateAndTotalsFromTransactions(data), [data])
   return (
-    <tr>
-      <td>{formatDateTime(transaction.created_at, "HH:mm:ss")}</td>
-      <td colSpan={3}>{capitalize(transaction.reference)}</td>
-      <td className="text-right">{formatMoney(transaction.amount)}</td>
-      {transactionModalAvailable && (
-        <td className="text-right">
-          <Icon
-            type="info"
-            size={20}
-            style={{ color: "cornflowerblue" }}
-            onClick={modalHelper.open}
-          />
-          {modalHelper.isOpen() && (
-            <Modal
-              isOpen
-              withCloseIcon
-              testid={`modal:transaction-${transaction.id}`}
-              width={800}
-              onClose={modalHelper.close}
-              renderContent={() => (
-                <Payment payment={transaction.entity_object} />
-              )}
-            />
-          )}
-        </td>
-      )}
-      {transaction.entity__type === "employeerecordpayment" && (
-        <td className="text-right">
-          <Icon
-            type="link"
-            size={20}
-            style={{ color: "cornflowerblue" }}
-            onClick={() =>
-              history.push(`/records/${transaction.entity_object.record}`)
-            }
-          />
-        </td>
-      )}
-    </tr>
-  );
-};
+    <Table
+      title={() => <DatePicker.RangePicker
+        onChange={setDates}
+        ranges={{
+          "Сегодня": [moment(), moment()],
+          "Текущая неделя": [moment().startOf("week"), moment().endOf("week")],
+          "Текущий месяц": [moment().startOf("month"), moment().endOf("month")],
+          "Текущий год": [moment().startOf("year"), moment().endOf("year")]
+        }}
+        value={dates}
+      />}
+      loading={isLoading}
+      pagination={false}
+      columns={[
+        {
+          title: "Дата",
+          dataIndex: "date",
+          key: "date",
+          render: (value) => formatDateTime(value, "dddd, DD.MM.YYYY")
+        },
+        { title: "Сумма", dataIndex: "total", key: "total" }
+      ]}
+      dataSource={groups}
+      rowKey="date"
+      expandable={{
+        defaultExpandedRowKeys: groups.map(el => el.date),
+        expandedRowRender: (record) => <Table columns={[
+          {
+            title: "Время",
+            dataIndex: "created_at",
+            key: "created_at",
+            render: (v) => formatDateTime(v, "HH:mm:ss")
+          },
+          { title: "Сумма", dataIndex: "amount", key: "amount", render: formatMoney },
+          { title: "Назначение", dataIndex: "reference", key: "reference", render: capitalize }
+        ]} dataSource={getGroup(record.date)} rowKey="id" pagination={false} />
+      }}
+    />
+  )
+}
 
-const Transactions = ({ groupedTransactions }) => {
-  return (
-    <table cellPadding={0} cellSpacing={0}>
-      <thead>
-        <tr>
-          <th className="text-left">Дата</th>
-          <th className="text-left" colSpan={3}>
-            Источник
-          </th>
-          <th className="text-right">Сумма</th>
-          <th />
-        </tr>
-      </thead>
-      <tbody>
-        {Object.entries(groupedTransactions).map(([date, _transactions]) => (
-          <Fragment key={date}>
-            <tr className="date-block">
-              <th className="text-left">{date}</th>
-              <th className="text-left" colSpan={3} />
-              <th className="text-right">
-                {formatMoney(
-                  _transactions.reduce(
-                    (acc, next) => acc + parseFloat(next.amount),
-                    0
-                  )
-                )}
-              </th>
-              <th />
-            </tr>
-            {_transactions.map(transaction => (
-              <TransactionEntity
-                key={transaction.id}
-                transaction={transaction}
-              />
-            ))}
-          </Fragment>
-        ))}
-      </tbody>
-    </table>
-  );
-};
-
-export default Transactions;
+export default Transactions

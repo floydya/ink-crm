@@ -1,7 +1,0 @@
-@font-face {
-  font-family: 'jira';
-  src: url('./fonts/icofont.woff') format('truetype'),
-    url('./fonts/icofont.ttf') format('woff'), url('./fonts/icofont.svg') format('svg');
-  font-weight: normal;
-  font-style: normal;
-}

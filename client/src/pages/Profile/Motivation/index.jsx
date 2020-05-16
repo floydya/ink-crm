@@ -2,13 +2,14 @@ import React, { useContext, useEffect } from "react"
 import { useParams } from "react-router-dom"
 import { AuthenticationContext } from "../../../services/authentication.service"
 import useApi from "../../../shared/hooks/api"
-import { PageError, PageLoader } from "../../../shared/components"
+import { PageError } from "../../../shared/components"
 import { Container } from "./Styles"
 import pubsub from "sweet-pubsub"
 import Breadcrumbs from "../../../shared/components/Breadcrumbs"
 import SessionsTable from "./Tables/Sessions"
 import EducationsTable from "./Tables/Educations"
 import StoreTable from "./Tables/Sells"
+import { PageLoading } from "@ant-design/pro-layout"
 
 const Motivation = () => {
   const { employeeId } = useParams()
@@ -20,7 +21,7 @@ const Motivation = () => {
     return () => pubsub.off("fetch-profile", fetchProfile)
   }, [fetchProfile])
 
-  if (isLoading) return <PageLoader />
+  if (isLoading) return <PageLoading tip={"Загрузка..."} />
   if (error) return <PageError />
 
   const profile = data.profile.find(p => p.parlor.id === parlor)

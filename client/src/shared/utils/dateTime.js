@@ -14,3 +14,6 @@ export const formatDateTimeForAPI = date =>
     : date;
 
 export const formatDateTimeConversational = date => (date ? moment(date).fromNow() : date);
+
+export const getMonthName = month =>
+  new Date(1970, month, 1).toLocaleString('default', {month: "long"})

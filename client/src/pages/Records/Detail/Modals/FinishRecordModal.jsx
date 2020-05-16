@@ -4,11 +4,10 @@ import pubsub from "sweet-pubsub";
 import { RecordContext } from "../Context";
 import useApi from "shared/hooks/api";
 import { Form } from "shared/components";
-import { FormElement, Divider } from "layout/Settings/Styles";
 import { FinishFormContainer } from "../Styles";
 import { useState } from "react";
 import { useEffect } from "react";
-import { Actions, ActionButton } from "pages/Authentication/Styles";
+import { Actions, ActionButton, FormElement, Divider } from "pages/Authentication/Styles"
 import moment from "moment";
 
 const getCoupon = (couponList, coupon) => {

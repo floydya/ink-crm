@@ -1,7 +1,7 @@
 import React, { Fragment, useEffect, useMemo } from "react";
 import { Link, useParams } from "react-router-dom";
 import useApi from "../../../shared/hooks/api";
-import { PageError, PageLoader, Modal } from "../../../shared/components";
+import { PageError, Modal } from "../../../shared/components";
 import Button from "../../../shared/components/Button";
 import {
   Container,
@@ -26,6 +26,7 @@ import { RecordContext } from "./Context";
 import FinishRecordModal from "./Modals/FinishRecordModal";
 import { Divider } from "pages/Authentication/Styles";
 import ConsumableTable from "./Consumables/table";
+import { PageLoading } from "@ant-design/pro-layout"
 
 const RecordDetail = () => {
   const { recordId } = useParams();
@@ -51,7 +52,7 @@ const RecordDetail = () => {
     return () => pubsub.off("fetch-record", fetchRecord);
   }, [fetchRecord]);
 
-  if (isLoading) return <PageLoader />;
+  if (isLoading) return <PageLoading tip={"Загрузка..."} />;
   if (error) return <PageError />;
 
   return (

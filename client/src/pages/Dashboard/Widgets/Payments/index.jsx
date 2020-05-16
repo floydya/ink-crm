@@ -1,6 +1,6 @@
 import React, { Fragment, useEffect } from "react"
 import { useCurrentProfile } from "shared/hooks/currentUser"
-import { Button, Table, PageLoader, PageError } from "shared/components"
+import { Button, Table, PageError } from "shared/components"
 import useApi from "shared/hooks/api"
 import NoResults from "shared/components/NoResults"
 import { formatDateTime } from "shared/utils/dateTime"
@@ -8,6 +8,7 @@ import { useModalStateHelper } from "pages/Home/components/shared"
 import Modal from "shared/components/Modal"
 import pubsub from "sweet-pubsub"
 import { UpdateExpense, CreateExpense } from "pages/Dashboard/Widgets/Payments/Forms"
+import { PageLoading } from "@ant-design/pro-layout"
 
 
 const PaymentActions = ({ payment }) => {
@@ -78,7 +79,7 @@ const Payments = () => {
     return () => pubsub.off("fetch-payments", fetchPayments)
   })
 
-  if (isLoading) return <PageLoader />
+  if (isLoading) return <PageLoading tip={"Загрузка..."} />
   if (error) return <PageError />
 
   return (

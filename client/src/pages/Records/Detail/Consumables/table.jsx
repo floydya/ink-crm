@@ -2,7 +2,6 @@ import React, { useMemo } from "react";
 
 import { useParams } from "react-router-dom";
 import {
-  PageLoader,
   PageError,
   Table,
   Icon,
@@ -21,6 +20,7 @@ import {
 import pubsub from "sweet-pubsub";
 import { useCallback } from "react";
 import NoResults from "shared/components/NoResults";
+import { PageLoading } from "@ant-design/pro-layout"
 
 const NewConsumableForm = ({ modalClose }) => {
   const { recordId } = useParams();
@@ -211,7 +211,7 @@ const ConsumableTable = () => {
     { mountFetch: true }
   );
 
-  if (isLoading) return <PageLoader />;
+  if (isLoading) return <PageLoading tip={"Загрузка..."} />
   if (error) return <PageError />;
   return (
     <div style={{ backgroundColor: "white", padding: "15px" }}>

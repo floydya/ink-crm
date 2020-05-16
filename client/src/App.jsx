@@ -1,22 +1,24 @@
 import React, { useContext, useEffect } from "react"
 import { Route, Redirect, Switch, useLocation } from "react-router-dom"
+import { PageLoading } from "@ant-design/pro-layout"
 import useApi from "./shared/hooks/api"
-import { PageLoader } from "./shared/components"
 import { authenticationActions } from "./store/actions"
 import pubsub from "sweet-pubsub"
 import { AuthenticationContext } from "./services/authentication.service"
-import CreateRecord from "./pages/Records/Create"
-import RecordDetail from "./pages/Records/Detail"
-import Dashboard from "pages/Dashboard"
 import Layout from "./layouts/index.jsx"
 
-const HomePage = React.lazy(() => import("./pages/Home"))
-const Profile = React.lazy(() => import("./pages/Profile"))
-const Motivation = React.lazy(() => import("./pages/Profile/Motivation"))
-const Employees = React.lazy(() => import("./pages/Employees"))
-const CustomerCreate = React.lazy(() => import("./pages/Customer/Create"))
-const CustomerCreateForm = React.lazy(() => import("./pages/Customer/Create/CustomerCreateForm"))
-const CustomerDetail = React.lazy(() => import("./pages/Customer/Detail"))
+const Dashboard = React.lazy(() => import("pages/Dashboard"))
+const RecordDetail = React.lazy(() => import("pages/Records/Detail"))
+const CreateRecord = React.lazy(() => import("pages/Records/Create"))
+const CreateUserPage = React.lazy(() => import("pages/Employees/CreateUserPage"))
+const HomePage = React.lazy(() => import("pages/Home"))
+const Profile = React.lazy(() => import("pages/Profile"))
+const Motivation = React.lazy(() => import("pages/Profile/Motivation"))
+const Employees = React.lazy(() => import("pages/Employees"))
+const CustomerCreate = React.lazy(() => import("pages/Customer/Create"))
+const CustomerCreateForm = React.lazy(() => import("pages/Customer/Create/CustomerCreateForm"))
+const CustomerDetail = React.lazy(() => import("pages/Customer/Detail"))
+const BountyCreateForm = React.lazy(() => import("pages/Profile/Bounties/Create"))
 
 const App = () => {
   const { pathname } = useLocation()
@@ -41,11 +43,11 @@ const App = () => {
 
   if (!isAuthenticated) return <Redirect to={`/login?next=${pathname}`} />
 
-  if (!data) return <PageLoader />
+  if (!data) return <PageLoading tip={"Загрузка..."} />
 
   return (
-    <Layout>
-      <React.Suspense fallback={<PageLoader />}>
+    <React.Suspense fallback={<PageLoading tip={"Загрузка..."} />}>
+      <Layout>
         <Switch>
           <Route path="/home" render={() => <HomePage />} />
           <Route path="/dashboard" render={() => <Dashboard />} />
@@ -54,17 +56,19 @@ const App = () => {
           <Route path="/customers/create/:phoneNumber" exact render={() => <CustomerCreateForm />} />
           <Route path="/records/create/:customerId" exact render={() => <CreateRecord />} />
           <Route path="/records/:recordId" exact render={() => <RecordDetail />} />
+          <Route path="/employees/create" exact render={() => <CreateUserPage />} />
           <Route
             path="/employees/:employeeId/motivations"
             exact
             render={() => <Motivation />}
           />
           <Route path="/employees/:employeeId" exact render={() => <Profile />} />
+          <Route path="/employees/:employeeId/bounties/create" exact render={() => <BountyCreateForm />} />
           <Route path="/employees" exact render={() => <Employees />} />
           <Redirect to="/home" />
         </Switch>
-      </React.Suspense>
-    </Layout>
+      </Layout>
+    </React.Suspense>
   )
 }
 

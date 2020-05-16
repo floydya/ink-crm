@@ -1,11 +1,12 @@
 import React, { useCallback, useState } from "react"
 import PropTypes from "prop-types"
-import { Form } from "../../../shared/components"
-import { ActionButton, Actions, FormElement, FormHeading } from "../../Authentication/Styles"
-import useApi from "../../../shared/hooks/api"
+import useApi from "shared/hooks/api"
 import pubsub from "sweet-pubsub"
-import useInterval from "../../../shared/hooks/useInterval"
-
+import useInterval from "shared/hooks/useInterval"
+import { Button, Form } from "antd"
+import AntForm from "components/Form"
+import MaskedInput from "antd-mask-input"
+import "antd/es/input/style/index.less"
 const propTypes = {
   phone: PropTypes.object.isRequired
 }
@@ -25,39 +26,29 @@ const PhoneVerification = ({ phone }) => {
   }, 1000)
 
   return <div>
-    <Form
-      validations={{
-        verification_code: Form.is.match(
-          (pin) => /^\d{4}$/.test(pin),
-          "Пин-код должен быть из 4-х цифр."
-        )
-      }}
-      initialValues={{ verification_code: "" }}
-      onSubmit={async (values, form) => {
-        try {
-          await updatePhone(values)
-          pubsub.emit("fetch-customer")
-        } catch (error) {
-          Form.handleAPIError(error, form)
+    <AntForm handleSubmit={async (values) => {
+      await updatePhone(values)
+      await pubsub.emit("fetch-customer")
+    }} formProps={{ layout: "vertical" }}>
+      <Form.Item label="Пин-код" name="verification_code" rules={[
+        {
+          validator: (rule, value) =>
+            /^\d{4}$/.test(value)
+              ? Promise.resolve()
+              : Promise.reject("Пин-код должен быть из 4-х цифр.")
         }
-      }}
-    >
-      <FormElement>
-        <FormHeading>Подтверждение номера телефона</FormHeading>
-        <Form.Field.Input name="verification_code" label="Пин-код" />
-        <Actions>
-          <ActionButton type="submit" variant="primary" isWorking={isUpdating}>
-            Подтвердить
-          </ActionButton>
-        </Actions>
-        <Actions style={{ flexDirection: "column", alignItems: "center" }}>
-          <ActionButton type="button" variant="empty" onClick={handleSend} isWorking={seconds > 0}>
-            Отправить пин-код повторно по СМС
-          </ActionButton>
-          {seconds > 0 && <h5>Повторная отправка возможна через {seconds} секунд.</h5>}
-        </Actions>
-      </FormElement>
-    </Form>
+      ]}>
+        <MaskedInput mask="1111" />
+      </Form.Item>
+      <Form.Item style={{ width: "100%" }}>
+        <Button type="primary" htmlType="submit" loading={isUpdating}>
+          Подтвердить
+        </Button>
+        <Button type="link" onClick={handleSend} htmlType="button" loading={seconds > 0}>
+          {seconds > 0 ? `Можно отправить еще раз через ${seconds} секунд.` : "Отправить пин-код по СМС"}
+        </Button>
+      </Form.Item>
+    </AntForm>
   </div>
 }
 

@@ -10,14 +10,14 @@ const getParlorFromProfile = (profile) => {
 export const ParlorSwitch = ({ logo }) => {
   const { user, dispatch, parlor: currentParlor } = useContext(AuthenticationContext)
   const onChange = useCallback(
-    (selected) => dispatch(authenticationActions.setParlor(selected.id)),
+    (selected) => dispatch(authenticationActions.setParlor(selected)),
     [dispatch]
   )
   const parlors = useMemo(
     () => (user?.profile || []).map(getParlorFromProfile),
     [user]
   )
-  return (<a href="#" onClick={event => event.preventDefault()}>
+  return (<a href={"#a"} onClick={event => event.preventDefault()}>
     {logo}
     <h1 style={{ width: "100%" }}>
       <Select value={currentParlor} bordered={false} onChange={onChange}>
