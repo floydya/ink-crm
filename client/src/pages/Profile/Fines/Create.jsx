@@ -8,14 +8,14 @@ import ProfileContext from "pages/Profile/context";
 import ModalForm from "components/ModalForm";
 import { PlusSquareOutlined } from "@ant-design/icons";
 
-const BountyCreateForm = () => {
+const FineCreateForm = () => {
   const { profile } = useContext(ProfileContext);
-  const [{ data }] = useApi.get(`/types/bounties/`, {}, { mountFetch: true });
-  const [{ isCreating }, createBounty] = useApi.post(`/bounties/`);
+  const [{ data }] = useApi.get(`/types/fines/`, {}, { mountFetch: true });
+  const [{ isCreating }, createFine] = useApi.post(`/fines/`);
 
   return (
     <ModalForm
-      title="Создание премии"
+      title="Создание штрафа"
       modalProps={{
         okText: "Создать",
         cancelText: "Отменить",
@@ -23,15 +23,15 @@ const BountyCreateForm = () => {
       }}
       formProps={{ layout: "vertical" }}
       buttonProps={{
-        children: "Премия",
+        children: "Штраф",
         icon: <PlusSquareOutlined />,
         type: "primary",
-        style: { backgroundColor: "green", borderColor: "green" },
+        style: { backgroundColor: "red", borderColor: "red" },
       }}
       handleSubmit={async (values) => {
-        await createBounty({ ...values, employee: profile.id });
+        await createFine({ ...values, employee: profile.id });
         pubsub.emit("fetch-unpayed-payments");
-        message.success("Премия успешно создана.");
+        message.success("Штраф успешно создана.");
       }}
     >
       <Row>
@@ -58,7 +58,7 @@ const BountyCreateForm = () => {
           </Form.Item>
         </Col>
       </Row>
-      <Form.Item label="Тип премии" name="type">
+      <Form.Item label="Тип штрафа" name="type">
         <Select>
           {(data || []).map((t) => (
             <Select.Option value={t.id}>{t.name}</Select.Option>
@@ -78,4 +78,4 @@ const BountyCreateForm = () => {
   );
 };
 
-export default BountyCreateForm;
+export default FineCreateForm;

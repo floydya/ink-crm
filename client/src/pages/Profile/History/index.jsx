@@ -1,22 +1,21 @@
-import React from "react"
-import UnpayedPayments from "./UnpayedPayments"
-import Transactions from "./Transactions"
-import { Col, Row } from "antd"
-
+import React from "react";
+import UnpayedPayments from "./UnpayedPayments";
+import Transactions from "./Transactions";
 
 const History = () => {
-  return <>
-    <Row>
-      <Col md={{ span: 11 }}>
-        <h2>Транзакции</h2>
-        <Transactions />
-      </Col>
-      <Col md={{ span: 11, offset: 2 }}>
-        <h2>Невыплаченные платежи</h2>
-        <UnpayedPayments />
-      </Col>
-    </Row>
-  </>
-}
+  return (
+    <div
+      style={{
+        display: "grid",
+        gridTemplateColumns: "repeat(2, 1fr)",
+        gap: "25px",
+      }}
+    >
+      <Transactions />
 
-export default History
+      <UnpayedPayments />
+    </div>
+  );
+};
+
+export default History;

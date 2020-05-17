@@ -1,129 +1,107 @@
-import React, { useMemo } from "react"
-import Form from "../../../shared/components/Form"
-import { ActionButton, Actions, FormElement, FormHeading } from "../../Authentication/Styles"
-import useApi from "../../../shared/hooks/api"
-import pubsub from "sweet-pubsub"
+import React, { useMemo, useContext } from "react";
+import useApi from "shared/hooks/api";
+import pubsub from "sweet-pubsub";
+import { Form, message, Select, Input } from "antd";
+import ModalForm from "components/ModalForm";
+import { EditOutlined, PlusOutlined } from "@ant-design/icons";
+import ProfileContext from "../context";
 
-export const SessionForm = ({ types, href, motivation = null, employee, modalClose }) => {
-  const [{ isUpdating }, updateMotivation] = useApi.patch(`/motivation/${href}/${motivation?.id}/`)
-  const [{ isCreating }, createMotivation] = useApi.post(`/motivation/${href}/`)
-  const [isLoading, handleMotivation] = useMemo(
-    () => motivation?.id ? [isUpdating, updateMotivation] : [isCreating, createMotivation],
+const typeName = (href) => {
+  switch (href) {
+    case "sessions":
+      return "session_type";
+    case "educations":
+      return "session_type";
+    case "sells":
+      return "sell_category";
+    default:
+      throw new Error("Undefined type");
+  }
+};
+
+const MotivationForm = ({ types, href, motivation = null }) => {
+  const { profile } = useContext(ProfileContext);
+  const [{ isUpdating }, updateMotivation] = useApi.patch(
+    `/motivation/${href}/${motivation?.id}/`
+  );
+  const [{ isCreating }, createMotivation] = useApi.post(
+    `/motivation/${href}/`
+  );
+  const [loading, handleMotivation] = useMemo(
+    () =>
+      motivation?.id
+        ? [isUpdating, updateMotivation]
+        : [isCreating, createMotivation],
     [motivation, isUpdating, isCreating, updateMotivation, createMotivation]
-  )
-  return <div>
-    <Form
-      enableReinitialize
-      initialValues={{
-        employee: employee,
-        session_type: motivation?.session_type?.id || "",
-        base_percent: motivation?.base_percent || "",
-        invite_percent: motivation?.invite_percent || ""
+  );
+  const typeOptions = useMemo(
+    () =>
+      motivation?.id
+        ? [
+            {
+              label: motivation[typeName(href)]?.name,
+              value: motivation[typeName(href)]?.id,
+            },
+          ]
+        : types,
+    [types, motivation, href]
+  );
+  return (
+    <ModalForm
+      title={`${motivation?.id ? "Изменение" : "Создание"} мотивации`}
+      modalProps={{
+        okText: motivation?.id ? "Изменить" : "Создать",
+        cancelText: "Отменить",
+        okButtonProps: { loading },
       }}
-      validations={{
-        session_type: Form.is.required(),
-        base_percent: Form.is.required(),
-        invite_percent: Form.is.required()
+      formProps={{ layout: "vertical" }}
+      buttonProps={{
+        children: motivation?.id ? "Изменить" : "Создать",
+        icon: motivation?.id ? <EditOutlined /> : <PlusOutlined />,
+        type: motivation?.id ? "dashed" : "primary",
+        style: motivation?.id ? {} : { width: "100%" },
       }}
-      onSubmit={async (values, form) => {
-        try {
-          await handleMotivation({ ...values })
-          await pubsub.emit('fetch-profile')
-          modalClose()
-        } catch (error) {
-          Form.handleAPIError(error, form)
-        }
+      handleSubmit={async (values) => {
+        await handleMotivation({
+          ...values,
+          ...(motivation?.id ? {} : { employee: profile.id }),
+        });
+        message.success(
+          `Мотивация успешно ${motivation?.id ? "изменена" : "добавлена"}`
+        );
+        pubsub.emit("fetch-profile");
       }}
     >
-      <FormElement>
-        <FormHeading>
-          {!motivation?.id ? "Добавление мотивации" : "Изменение мотивации"}
-        </FormHeading>
-        <Form.Field.Select
-          options={
-            motivation?.id
-              ? [{ label: motivation?.session_type.name, value: motivation?.session_type?.id }]
-              : types
-          }
-          name={"session_type"}
-          label="Категория"
-          disabled={motivation?.id}
-        />
-        <Form.Field.Input
-          type="number"
-          name="base_percent"
-          label="Базовый процент"
-        />
-        <Form.Field.Input
-          type="number"
-          name="invite_percent"
+      <Form.Item
+        label="Тип мотивации"
+        name={typeName(href)}
+        disabled={motivation?.id}
+        initialValue={motivation && motivation[typeName(href)]?.id}
+      >
+        <Select>
+          {typeOptions.map((t) => (
+            <Select.Option value={t.value} children={t.label} />
+          ))}
+        </Select>
+      </Form.Item>
+      <Form.Item
+        label="Базовый процент"
+        name="base_percent"
+        initialValue={motivation?.base_percent}
+      >
+        <Input type="number" min={0} max={100} />
+      </Form.Item>
+      {href !== "sells" && (
+        <Form.Item
           label="Процент за приглашение"
-        />
-        <Actions>
-          <ActionButton type="submit" variant="primary" isWorking={isLoading}>
-            Сохранить
-          </ActionButton>
-        </Actions>
-      </FormElement>
-    </Form>
-  </div>
-}
+          name="invite_percent"
+          initialValue={motivation?.invite_percent}
+        >
+          <Input type="number" min={0} max={100} />
+        </Form.Item>
+      )}
+    </ModalForm>
+  );
+};
 
-export const StoreForm = ({ types, motivation = null, employee, modalClose }) => {
-  const [{ isUpdating }, updateMotivation] = useApi.patch(`/motivation/sells/${motivation?.id}/`)
-  const [{ isCreating }, createMotivation] = useApi.post(`/motivation/sells/`)
-  const [isLoading, handleMotivation] = useMemo(
-    () => motivation?.id ? [isUpdating, updateMotivation] : [isCreating, createMotivation],
-    [motivation, isUpdating, isCreating, updateMotivation, createMotivation]
-  )
-  return <div>
-    <Form
-      enableReinitialize
-      initialValues={{
-        sell_category: motivation?.sell_category?.id || "",
-        base_percent: motivation?.base_percent || "",
-      }}
-      validations={{
-        sell_category: Form.is.required(),
-        base_percent: Form.is.required(),
-      }}
-      onSubmit={async (values, form) => {
-        try {
-          await handleMotivation({ ...values, employee })
-          await pubsub.emit('fetch-profile')
-          modalClose()
-        } catch (error) {
-          Form.handleAPIError(error, form)
-        }
-      }}
-    >
-      <FormElement>
-        <FormHeading>
-          {motivation?.id ? "Добавление мотивации" : "Изменение мотивации"}
-        </FormHeading>
-        <Form.Field.Select
-          options={motivation?.id
-              ? [{ label: motivation?.sell_category.name, value: motivation?.sell_category?.id }]
-              : types}
-          name={"sell_category"}
-          label="Категория"
-          disabled={motivation?.id}
-        />
-        <Form.Field.Input
-          type="number"
-          name="base_percent"
-          label="Процент"
-        />
-        <Actions>
-          <ActionButton type="submit" variant="primary" isWorking={isLoading}>
-            Сохранить
-          </ActionButton>
-        </Actions>
-      </FormElement>
-    </Form>
-  </div>
-}
-
-
-
-
+export default MotivationForm;
