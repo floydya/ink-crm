@@ -30,6 +30,7 @@ const useFilters = () => {
     >
       <Form.Item>
         <Select
+          allowClear
           loading={isLoading}
           onChange={setType}
           value={type}
@@ -41,21 +42,31 @@ const useFilters = () => {
         </Select>
       </Form.Item>
       <Form.Item>
-        <Select onChange={setMonth} value={month} placeholder="Месяц">
+        <Select
+          allowClear
+          onChange={setMonth}
+          value={month}
+          placeholder="Месяц"
+        >
           {months.map((el) => (
             <Select.Option value={el.value}>{el.label}</Select.Option>
           ))}
         </Select>
       </Form.Item>
       <Form.Item>
-        <Select onChange={setYear} value={year} placeholder="Год">
+        <Select allowClear onChange={setYear} value={year} placeholder="Год">
           {years.map((el) => (
             <Select.Option value={el.value}>{el.label}</Select.Option>
           ))}
         </Select>
       </Form.Item>
       <Form.Item>
-        <Select onChange={setStatus} value={status} placeholder="Статус">
+        <Select
+          allowClear
+          onChange={setStatus}
+          value={status}
+          placeholder="Статус"
+        >
           <Select.Option value={"null"}>Ожидание</Select.Option>
           <Select.Option value={"True"}>Выплачен</Select.Option>
           <Select.Option value={"False"}>Отменен</Select.Option>
@@ -93,6 +104,7 @@ const Fines = () => {
         },
         { title: "Сумма", dataIndex: "amount", key: "amount" },
       ]}
+      rowKey="id"
       dataSource={data}
       expandable={{
         expandedRowRender: (record) => (
@@ -108,7 +120,9 @@ const Fines = () => {
             </Descriptions.Item>
             {record.href && (
               <Descriptions.Item label="Доказательство">
-                {record.href}
+                <a href={record.href} target="_blank" rel="noopener noreferrer">
+                  Открыть в новой вкладке
+                </a>
               </Descriptions.Item>
             )}
           </Descriptions>
