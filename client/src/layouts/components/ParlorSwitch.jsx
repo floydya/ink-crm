@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useMemo } from "react"
+import React, { useCallback, useContext, useEffect, useMemo } from "react"
 import { AuthenticationContext } from "services/authentication.service"
 import { authenticationActions } from "store/actions"
 import { Select } from "./ParlorSwitch.components"
@@ -17,6 +17,9 @@ export const ParlorSwitch = ({ logo }) => {
     () => (user?.profile || []).map(getParlorFromProfile),
     [user]
   )
+  useEffect(() => {
+    if (!currentParlor && parlors.length) onChange(parlors[0]?.id)
+  }, [parlors, onChange, currentParlor])
   return (<a href={"#a"} onClick={event => event.preventDefault()}>
     {logo}
     <h1 style={{ width: "100%" }}>

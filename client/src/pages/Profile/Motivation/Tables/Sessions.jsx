@@ -26,6 +26,7 @@ const SessionMotivation = () => {
   );
   return (
     <Table
+      tableLayout="fixed"
       columns={[
         {
           title: "Категория",
@@ -57,6 +58,7 @@ const SessionMotivation = () => {
       ]}
       dataSource={session_motivations}
       pagination={false}
+      rowKey="id"
       title={() => <h2>Сеансы</h2>}
       footer={() => <MotivationForm href="sessions" types={typeOptions} />}
     />

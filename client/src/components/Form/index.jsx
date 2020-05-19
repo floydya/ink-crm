@@ -15,7 +15,7 @@ const AntForm = ({ _form, handleSubmit, formProps, children }) => {
           form.setFields(formData);
           formData
             .filter((el) => ["detail", "non_field_errors"].includes(el.name))
-            .forEach((el) => message.error(el.errors));
+            .forEach((el) => message.error(el.errors, 5));
         } else {
           console.log(errors);
         }

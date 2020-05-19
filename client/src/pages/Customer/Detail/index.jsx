@@ -1,10 +1,11 @@
-import React, { lazy, useEffect, useMemo, useState } from "react"
+import React, { lazy, useEffect, useMemo } from "react"
 import { useParams } from "react-router-dom"
 import useApi from "shared/hooks/api"
 import PhoneVerification from "./PhoneVertification"
 import pubsub from "sweet-pubsub"
 import { PageHeaderWrapper, PageLoading } from "@ant-design/pro-layout"
 import { Descriptions } from "antd"
+import useQuery from "shared/hooks/useQuery"
 
 const RecordList = lazy(() => import("./RecordList"))
 
@@ -18,7 +19,7 @@ const tabs = [
 const CustomerDetail = () => {
   const { customerId } = useParams()
   const [{ isLoading, data, error }, fetchCustomer] = useApi.get(`/customers/${customerId}/`, {}, { mountFetch: true })
-  const [tab, setTab] = useState("works")
+  const [tab, setTab] = useQuery("tab", "works")
   const CurrentTab = useMemo(() => tabs.find(el => el.key === tab).Component, [tab])
   useEffect(() => {
     pubsub.on("fetch-customer", fetchCustomer)

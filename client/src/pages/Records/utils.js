@@ -25,8 +25,10 @@ export const recordStatusColors = {
     [RecordStatus.CANCELED]: "gray",
 }
 
-export const RecordStatusLabel = ({ status, children }) => (
-  <Tag color={recordStatusColors[status]}>
+export const RecordStatusLabel = ({ status, children, ...props }) => (
+  <Tag {...props} color={recordStatusColors[status]}>
       {children}
   </Tag>
 )
+
+export const canEdit = (status) => [RecordStatus.NEW, RecordStatus.PENDING].includes(status)

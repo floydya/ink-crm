@@ -36,8 +36,9 @@ class EmployeeRecordPaymentSerializer(serializers.ModelSerializer):
 
 
 class PrepaymentSerializer(serializers.ModelSerializer):
-    created_by = UsernameSerializer()
-    updated_by = UsernameSerializer()
+    created_by = UsernameSerializer(read_only=True)
+    updated_by = UsernameSerializer(read_only=True)
+    value = MoneyField(max_digits=14, decimal_places=2, required=True)
 
     class Meta:
         model = Prepayment
@@ -50,13 +51,7 @@ class PrepaymentSerializer(serializers.ModelSerializer):
             'updated_by',
             'value',
         )
-        extra_kwargs = {
-            "record": {"write_only": True},
-            "created_at": {"read_only": True},
-            "created_by": {"read_only": True},
-            "updated_at": {"read_only": True},
-            "updated_by": {"read_only": True},
-        }
+        read_only_fields = ('created_at', 'created_by', 'updated_at', 'updated_by')
 
     def update(self, instance, validated_data):
         validated_data['updated_by'] = self.context['request'].user

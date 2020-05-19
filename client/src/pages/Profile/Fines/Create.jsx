@@ -23,10 +23,10 @@ const FineCreateForm = () => {
       }}
       formProps={{ layout: "vertical" }}
       buttonProps={{
-        children: "Штраф",
+        children: "Добавить штраф",
         icon: <PlusSquareOutlined />,
         type: "primary",
-        style: { backgroundColor: "red", borderColor: "red" },
+        style: { width: "100%" },
       }}
       handleSubmit={async (values) => {
         await createFine({ ...values, employee: profile.id });
@@ -43,7 +43,7 @@ const FineCreateForm = () => {
           >
             <Select>
               {months.map((t) => (
-                <Select.Option value={t.value}>{t.label}</Select.Option>
+                <Select.Option key={t.value} value={t.value}>{t.label}</Select.Option>
               ))}
             </Select>
           </Form.Item>
@@ -52,7 +52,7 @@ const FineCreateForm = () => {
           <Form.Item label="Год" name="year" initialValue={moment().year()}>
             <Select>
               {years.map((t) => (
-                <Select.Option value={t.value}>{t.label}</Select.Option>
+                <Select.Option key={t.value} value={t.value}>{t.label}</Select.Option>
               ))}
             </Select>
           </Form.Item>
@@ -61,7 +61,7 @@ const FineCreateForm = () => {
       <Form.Item label="Тип штрафа" name="type">
         <Select>
           {(data || []).map((t) => (
-            <Select.Option value={t.id}>{t.name}</Select.Option>
+            <Select.Option key={t.id} value={t.id}>{t.name}</Select.Option>
           ))}
         </Select>
       </Form.Item>

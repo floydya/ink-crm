@@ -24,6 +24,7 @@ const SellMotivation = () => {
   );
   return (
     <Table
+      tableLayout="fixed"
       columns={[
         {
           title: "Категория",
@@ -50,6 +51,7 @@ const SellMotivation = () => {
       ]}
       dataSource={sell_motivations}
       pagination={false}
+      rowKey="id"
       title={() => <h2>Продажи</h2>}
       footer={() => <MotivationForm href="sells" types={typeOptions} />}
     />

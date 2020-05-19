@@ -52,6 +52,12 @@ export default ({ children }) => {
           ],
         },
         {
+          path: "/records/:recordId",
+          exact: true,
+          hideInMenu: true,
+          name: "Запись",
+        },
+        {
           path: "/employees",
           exact: true,
           name: "Сотрудники",

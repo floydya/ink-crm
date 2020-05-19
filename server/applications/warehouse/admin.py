@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.forms import BaseInlineFormSet
 
 from applications.motivations.admin import DefaultStoreMotivationInline
-from applications.warehouse.models import Category, Item, DefaultConsumable, Consumable
+from applications.warehouse.models import Category, Item, DefaultConsumable, Consumable, Warehouse
 from shared.admin import CompactInline
 
 
@@ -50,3 +50,12 @@ class ConsumableInline(CompactInline):
         formset = super(ConsumableInline, self).get_formset(request, obj, **kwargs)
         setattr(formset, "user", request.user)
         return formset
+
+
+@admin.register(Warehouse)
+class WarehouseAdmin(admin.ModelAdmin):
+    list_filter = ('parlor', 'item__category', 'item')
+    list_display = ('id', 'parlor', 'item', 'value')
+
+    def get_model_perms(self, request):
+        return {}

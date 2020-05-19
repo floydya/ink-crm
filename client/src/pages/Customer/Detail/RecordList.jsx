@@ -61,7 +61,7 @@ const RecordList = ({ data }) => {
         ),
     [data.records, profile.parlor.id]
   )
-  return (<Table columns={columns} dataSource={recordList} title={() => (
+  return (<Table columns={columns} dataSource={recordList} rowKey="id" title={() => (
     <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center"}}>
       <h3>
         Записи в этом салоне. Всего записей у этого клиента: {data.records.length}.

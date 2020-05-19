@@ -65,8 +65,8 @@ services:
     expose:
       - 8000
     volumes:
-      - static_files:/home/app/web/app/static
-      - media_files:/home/app/web/app/uploads
+      - static_files:/code/app/static
+      - media_files:/code/app/uploads
     depends_on:
       - cache
       - db

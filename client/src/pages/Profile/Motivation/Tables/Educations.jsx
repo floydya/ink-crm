@@ -26,6 +26,7 @@ const EducationMotivation = () => {
   );
   return (
     <Table
+      tableLayout="fixed"
       columns={[
         {
           title: "Категория",
@@ -57,6 +58,7 @@ const EducationMotivation = () => {
       ]}
       dataSource={education_motivations}
       pagination={false}
+      rowKey="id"
       title={() => <h2>Обучения</h2>}
       footer={() => <MotivationForm href="educations" types={typeOptions} />}
     />

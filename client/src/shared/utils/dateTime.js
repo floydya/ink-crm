@@ -3,7 +3,7 @@ import moment from 'moment';
 export const formatDate = (date, format = 'MMMM D, YYYY') =>
   date ? moment(date).format(format) : date;
 
-export const formatDateTime = (date, format = 'MMMM D, YYYY, h:mm A') =>
+export const formatDateTime = (date, format = "dddd, DD.MM.YYYY HH:mm:ss") =>
   date ? moment(date).format(format) : date;
 
 export const formatDateTimeForAPI = date =>

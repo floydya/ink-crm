@@ -151,7 +151,7 @@ class AbstractTransaction(models.Model):
             reference=None,
             entity_object=None,
     ):
-
+        amount = Money(amount, settings.DEFAULT_CURRENCY)
         purpose_obj = cls.purpose_model.objects.select_for_update().filter(pk=transaction_purpose_pk).first()
         total = cls.aggregate_sum(purpose_obj)
         assert total + amount >= Money(0, settings.DEFAULT_CURRENCY), "Not enough money!"

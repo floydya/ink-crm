@@ -1,49 +1,48 @@
-import React, { useContext, useMemo, useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
-import useApi from "shared/hooks/api";
-import { AuthenticationContext } from "services/authentication.service";
-import { PageError } from "shared/components";
-import { formatDateTime } from "shared/utils/dateTime";
-import CreateProfile from "./CreateProfile";
-import { PageHeaderWrapper, PageLoading } from "@ant-design/pro-layout";
-import { Avatar, Row, Col, Descriptions } from "antd";
-import History from "pages/Profile/History";
-import Bounties from "pages/Profile/Bounties";
-import ProfileContext from "pages/Profile/context";
-import BountyCreateForm from "./Bounties/Create";
-import FineCreateForm from "./Fines/Create";
-import Fines from "./Fines";
-import Motivation from "./Motivation";
-import pubsub from "sweet-pubsub";
+import React, { useContext, useMemo, useEffect } from "react"
+import { useParams } from "react-router-dom"
+import useApi from "shared/hooks/api"
+import { AuthenticationContext } from "services/authentication.service"
+import { PageError } from "shared/components"
+import { formatDateTime } from "shared/utils/dateTime"
+import CreateProfile from "./CreateProfile"
+import { PageHeaderWrapper, PageLoading } from "@ant-design/pro-layout"
+import { Avatar, Row, Col, Descriptions } from "antd"
+import History from "pages/Profile/History"
+import Bounties from "pages/Profile/Bounties"
+import ProfileContext from "pages/Profile/context"
+import Fines from "./Fines"
+import Motivation from "./Motivation"
+import pubsub from "sweet-pubsub"
+import useQuery from "shared/hooks/useQuery"
 
 const tabs = [
   { key: "history", tab: <span>История</span>, Component: History },
   { key: "motivation", tab: <span>Мотивация</span>, Component: Motivation },
   { key: "bounties", tab: <span>Премии</span>, Component: Bounties },
-  { key: "fines", tab: <span>Штрафы</span>, Component: Fines },
-];
+  { key: "fines", tab: <span>Штрафы</span>, Component: Fines }
+]
 
 const Profile = () => {
-  const [tab, setTab] = useState("history");
+  const [tab, setTab] = useQuery("tab", "history")
   const Component = useMemo(() => tabs.find((el) => el.key === tab).Component, [
-    tab,
-  ]);
-  const { employeeId } = useParams();
-  const { parlor } = useContext(AuthenticationContext);
+    tab
+  ])
+  const { employeeId } = useParams()
+  const { parlor } = useContext(AuthenticationContext)
   const [{ isLoading, data, error }, fetchEmployee] = useApi.get(
     `/users/${employeeId}/`,
     {},
     { mountFetch: true }
-  );
+  )
 
   useEffect(() => {
-    pubsub.on("fetch-profile", fetchEmployee);
-    return () => pubsub.off("fetch-profile", fetchEmployee);
-  });
+    pubsub.on("fetch-profile", fetchEmployee)
+    return () => pubsub.off("fetch-profile", fetchEmployee)
+  })
 
-  if (isLoading) return <PageLoading tip={"Загрузка..."} />;
-  if (error) return <PageError />;
-  const profile = data.profile.find((p) => p.parlor.id === parlor);
+  if (isLoading) return <PageLoading tip={"Загрузка..."} />
+  if (error) return <PageError />
+  const profile = data.profile.find((p) => p.parlor.id === parlor)
   if (!profile)
     return (
       <CreateProfile
@@ -51,7 +50,7 @@ const Profile = () => {
         parlor={parlor}
         user={data.id}
       />
-    );
+    )
   return (
     <ProfileContext.Provider value={{ user: data, profile }}>
       <PageHeaderWrapper
@@ -62,7 +61,7 @@ const Profile = () => {
               style={{
                 display: "flex",
                 justifyContent: "center",
-                alignItems: "center",
+                alignItems: "center"
               }}
             >
               <Avatar size={72} src={null}>
@@ -100,17 +99,11 @@ const Profile = () => {
         tabList={tabs}
         onTabChange={setTab}
         tabActiveKey={tab}
-        tabBarExtraContent={
-          <>
-            <BountyCreateForm />
-            <FineCreateForm />
-          </>
-        }
       >
         {Component && <Component employee={profile.id} />}
       </PageHeaderWrapper>
     </ProfileContext.Provider>
-  );
-};
+  )
+}
 
-export default Profile;
+export default Profile

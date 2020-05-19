@@ -1,42 +1,47 @@
-import React, { useState } from "react";
-import ReactDOM from "react-dom";
-import { Modal, Form, Button, message } from "antd";
-import AntForm from "components/Form";
+import React, { useMemo, useState } from "react"
+import ReactDOM from "react-dom"
+import { Modal, Form, Button, message } from "antd"
+import AntForm from "components/Form"
 
 const FormInModal = ({
-  handleSubmit,
-  title,
-  afterClose,
-  children,
-  modalProps,
-  formProps,
-  visible,
-  close,
-}) => {
-  const [form] = Form.useForm();
+                       handleSubmit,
+                       title,
+                       afterClose,
+                       children,
+                       modalProps,
+                       formProps,
+                       visible,
+                       close
+                     }) => {
+  const [form] = Form.useForm()
   const onOk = React.useCallback(
     () => {
       form.validateFields().then(async (values) => {
         try {
-          await handleSubmit(values);
-          await close();
+          await handleSubmit(values)
+          await close()
         } catch (errors) {
           if (errors?.data) {
             const formData = Object.entries(errors.data).map(
               ([name, errors]) => ({ name, errors })
-            );
-            form.setFields(formData);
+            )
+            form.setFields(formData)
             formData
               .filter((el) => ["detail", "non_field_errors"].includes(el.name))
-              .forEach((el) => message.error(el.errors));
+              .forEach((el) => message.error(el.errors))
           } else {
-            console.log(errors);
+            console.log(errors)
           }
         }
-      });
+      }, (errorInfo) => {
+        const { errorFields } = errorInfo
+        const errors = errorFields.map(e => ({ name: e.name[0], errors: e.errors }))
+        console.log(errors)
+        form.setFields(errors)
+      })
     },
     [form, close, handleSubmit]
-  );
+  )
   return (
     <Modal
       {...modalProps}
@@ -51,15 +56,22 @@ const FormInModal = ({
         {children}
       </AntForm>
     </Modal>
-  );
-};
+  )
+}
 
-const ModalForm = ({ buttonProps, ...props }) => {
-  const [visible, setVisible] = useState(false);
+const DefaultButton = (buttonProps) => (
+  <Button
+    htmlType="button"
+    {...buttonProps}
+  />
+)
+
+const ModalForm = ({ buttonProps, Component = null, ...props }) => {
+  const [visible, setVisible] = useState(false)
+  const RenderButton = useMemo(() => Component || DefaultButton, [Component])
   return (
     <>
-      <Button
-        htmlType="button"
+      <RenderButton
         {...buttonProps}
         onClick={setVisible.bind(null, true)}
       />
@@ -72,7 +84,7 @@ const ModalForm = ({ buttonProps, ...props }) => {
         document.getElementById("root")
       )}
     </>
-  );
-};
+  )
+}
 
-export default ModalForm;
+export default ModalForm

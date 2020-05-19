@@ -57,7 +57,7 @@ const CustomerCreateForm = () => {
       </Form.Item>
       <Form.Item label="Откуда узнал?" name="find_out">
         <Select>
-          {findOutOptions.map(opt => <Select.Option value={opt.value}>{opt.label}</Select.Option>)}
+          {findOutOptions.map(opt => <Select.Option key={opt.value} value={opt.value}>{opt.label}</Select.Option>)}
         </Select>
       </Form.Item>
       <Form.Item label="Дата рождения" name="birth_date">

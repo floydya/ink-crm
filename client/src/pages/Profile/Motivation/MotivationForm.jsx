@@ -80,7 +80,7 @@ const MotivationForm = ({ types, href, motivation = null }) => {
       >
         <Select>
           {typeOptions.map((t) => (
-            <Select.Option value={t.value} children={t.label} />
+            <Select.Option key={t.value} value={t.value} children={t.label} />
           ))}
         </Select>
       </Form.Item>

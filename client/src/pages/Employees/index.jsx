@@ -37,7 +37,7 @@ const Employees = () => {
     <Row>
       <Col md={11}>
         {Object.entries(groupedEmployees).map(([role, employees]) => (
-          <>
+          <React.Fragment key={role}>
             <Divider orientation="left">{role}</Divider>
             <List
               loading={isLoading}
@@ -59,7 +59,7 @@ const Employees = () => {
                 </List.Item>
               )}
             />
-          </>
+          </React.Fragment>
         ))}
       </Col>
       <Col md={11} offset={2}>

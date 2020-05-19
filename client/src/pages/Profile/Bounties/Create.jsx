@@ -23,10 +23,10 @@ const BountyCreateForm = () => {
       }}
       formProps={{ layout: "vertical" }}
       buttonProps={{
-        children: "Премия",
+        children: "Добавить премию",
         icon: <PlusSquareOutlined />,
         type: "primary",
-        style: { backgroundColor: "green", borderColor: "green" },
+        style: { width: "100%" },
       }}
       handleSubmit={async (values) => {
         await createBounty({ ...values, employee: profile.id });
@@ -43,7 +43,7 @@ const BountyCreateForm = () => {
           >
             <Select>
               {months.map((t) => (
-                <Select.Option value={t.value}>{t.label}</Select.Option>
+                <Select.Option key={t.value} value={t.value}>{t.label}</Select.Option>
               ))}
             </Select>
           </Form.Item>
@@ -52,7 +52,7 @@ const BountyCreateForm = () => {
           <Form.Item label="Год" name="year" initialValue={moment().year()}>
             <Select>
               {years.map((t) => (
-                <Select.Option value={t.value}>{t.label}</Select.Option>
+                <Select.Option key={t.value} value={t.value}>{t.label}</Select.Option>
               ))}
             </Select>
           </Form.Item>
@@ -61,7 +61,7 @@ const BountyCreateForm = () => {
       <Form.Item label="Тип премии" name="type">
         <Select>
           {(data || []).map((t) => (
-            <Select.Option value={t.id}>{t.name}</Select.Option>
+            <Select.Option key={t.id} value={t.id}>{t.name}</Select.Option>
           ))}
         </Select>
       </Form.Item>

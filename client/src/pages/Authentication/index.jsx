@@ -30,10 +30,10 @@ const Authentication = () => {
         wrapperCol: { span: 16 }
       }}>
         <h1>Авторизация</h1>
-        <Form.Item label="Имя пользователя" name="username" rules={[{ required: true }]}>
+        <Form.Item label="Имя пользователя" name="username" rules={[{ required: true, message: "Это поле обязательное для заполнения!" }]}>
           <Input size="large" prefix={<UserOutlined />} />
         </Form.Item>
-        <Form.Item label="Пароль" name="password" rules={[{ required: true }]}>
+        <Form.Item label="Пароль" name="password" rules={[{ required: true, message: "Это поле обязательное для заполнения!" }]}>
           <Input.Password size="large" prefix={<KeyOutlined />} />
         </Form.Item>
         <Form.Item wrapperCol={{ offset: 8, span: 16 }}>

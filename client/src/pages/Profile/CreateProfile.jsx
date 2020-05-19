@@ -19,7 +19,7 @@ const CreateProfile = ({ fetchEmployee, user, parlor }) => {
         }} formProps={{ layout: "vertical", size: "large" }}>
           <Form.Item name="role">
             <Select placeholder="Должность">
-              {roles.map(el => <Select.Option value={el.value}>{el.label}</Select.Option>)}
+              {roles.map(el => <Select.Option key={el.value} value={el.value}>{el.label}</Select.Option>)}
             </Select>
           </Form.Item>
           <Form.Item style={{ textAlign: "center" }}>

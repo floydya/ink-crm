@@ -8,7 +8,7 @@ import { AuthenticationContext } from "./services/authentication.service";
 import Layout from "./layouts/index.jsx";
 
 const Dashboard = React.lazy(() => import("pages/Dashboard"));
-const RecordDetail = React.lazy(() => import("pages/Records/Detail"));
+const RecordDetail = React.lazy(() => import("pages/Records/Detailed"));
 const RecordForm = React.lazy(() => import("pages/Records/Create"));
 const CreateUserPage = React.lazy(() =>
   import("pages/Employees/CreateUserPage")
