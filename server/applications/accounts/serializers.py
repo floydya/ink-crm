@@ -1,6 +1,7 @@
 from django.db.models import Q
 from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
+from djmoney.contrib.django_rest_framework import MoneyField
 
 from drf_base64.fields import Base64ImageField
 from phonenumber_field.serializerfields import PhoneNumberField
@@ -54,7 +55,6 @@ class ProfileSerializer(serializers.ModelSerializer):
     )
     role_display = serializers.CharField(source='get_role_display', read_only=True)
     balance = serializers.DecimalField(source='get_balance', max_digits=14, decimal_places=2, read_only=True)
-    # weekends = WeekendSerializer(many=True)
 
     class Meta:
         model = Profile
@@ -146,6 +146,7 @@ class AbstractPaymentEntitySerializer(serializers.ModelSerializer):
         model=Profile,
         queryset=Profile.objects.all()
     )
+    amount = MoneyField(max_digits=14, decimal_places=2)
 
     class Meta:
         fields = (
@@ -301,8 +302,6 @@ class TransactionEntityRelatedField(serializers.RelatedField):
                     fields = '__all__'
                 
             return AbstractSerializer(value).data
-
-        raise Exception(f"Unexpected transaction entity type {type(value)}")
 
 
 class TransactionSerializer(serializers.ModelSerializer):

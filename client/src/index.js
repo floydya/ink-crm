@@ -1,14 +1,11 @@
 import React from "react"
 import ReactDOM from "react-dom"
 import { Route, Switch, Redirect, Router } from "react-router-dom"
-
 import "moment/locale/ru"
 import history from "./history"
 
-import NormalizeStyles from "./layout/NormalizeStyles"
-import BaseStyles from "./layout/BaseStyles"
-import Toast from "./components/Toast"
 import AuthenticationProvider from "./services/authentication.service"
+import { PageLoading } from "@ant-design/pro-layout"
 // import * as Sentry from "@sentry/browser"
 // if (process.env.NODE_ENV && process.env.NODE_ENV !== "development") {
 //   Sentry.init({
@@ -22,20 +19,14 @@ import AuthenticationProvider from "./services/authentication.service"
 //   })
 // }
 
-import "./assets/fonts.css"
-import { PageLoader } from "./shared/components"
-
 const App = React.lazy(() => import("./App"))
 const Authentication = React.lazy(() => import("./pages/Authentication"))
 
 
 ReactDOM.render(
-  <React.Suspense fallback={<PageLoader />}>
+  <React.Suspense fallback={<PageLoading tip={"Загрузка..."} />}>
     <AuthenticationProvider>
       <Router history={history}>
-        <NormalizeStyles />
-        <BaseStyles />
-        <Toast />
         <Switch>
           <Route path="/login" exact render={props => <Authentication {...props} />} />
           <Route path="/" render={props => <App {...props} />} />

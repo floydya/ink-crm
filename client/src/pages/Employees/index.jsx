@@ -1,21 +1,13 @@
-import React, { Fragment, useContext, useEffect, useMemo, useState } from "react"
-import useApi from "../../shared/hooks/api"
-import { AuthenticationContext } from "../../services/authentication.service"
-import { Container, ProfileLine, RoleLine } from "./Styles"
-import { Avatar, Input, PageLoader } from "../../shared/components"
+import React, { useContext, useEffect, useMemo, useState } from "react"
+import useApi from "shared/hooks/api"
+import { AuthenticationContext } from "services/authentication.service"
 import lodash from "lodash"
-import { Divider } from "../Authentication/Styles"
-import Button from "../../shared/components/Button"
-import { color } from "../../shared/utils/styles"
-import NoResults from "../../shared/components/NoResults"
 import { Link } from "react-router-dom"
-import { useModalStateHelper } from "../Home/components/shared"
-import Modal from "../../shared/components/Modal"
-import CreateUserModal from "./CreateUserModal"
+import { PageHeaderWrapper } from "@ant-design/pro-layout"
+import { Col, Row, List, Avatar, Input, Button, Divider } from "antd"
 
 const Employees = () => {
   const { parlor } = useContext(AuthenticationContext)
-  const modalHelper = useModalStateHelper()
   const [{ isLoading, data }] = useApi.get(`/profiles/`, { parlor }, { mountFetch: true })
 
   const [search, setSearch] = useState("")
@@ -34,58 +26,68 @@ const Employees = () => {
       clearData()
     }
   }, [clearData, search, fetchEmployees])
-  return <Container>
-    <div>
-      <h2>Сотрудники этой студии</h2>
-      <Divider />
-      {isLoading ? <PageLoader /> : <Fragment>
-        {Object.entries(groupedEmployees).map(([role, employees]) => <Fragment key={role}>
-          <RoleLine>{role}</RoleLine>
-          {employees.map(el => (
-            <ProfileLine key={el.id} style={{
-              backgroundColor: search && search.length > 3 && (
-                el.user.full_name.toLowerCase().includes(search.toLowerCase()) ||
-                el.user.phone_number.includes(search)
-              ) && color.backgroundLightPrimary
-            }}>
-              <Avatar name={el.user.full_name} />
-              <h4>{el.user.full_name}</h4>
-              <Link to={`/employees/${el.user.id}`}>
-                <Button variant="empty" icon="link">Перейти</Button>
-              </Link>
-            </ProfileLine>
-          ))}
-        </Fragment>)}
-      </Fragment>}
-    </div>
-    <div>
-      <Input value={search} onChange={setSearch} icon="search" />
-      {searchLoading ? <PageLoader /> : <Fragment>
-        {searchResults.length ? searchResults.map(el =>
-          <ProfileLine key={el.id}>
-            <Avatar name={el.full_name} />
-            <h4>{el.full_name}</h4>
-            <Link to={`/employees/${el.id}`}>
-              <Button variant="empty" icon="link">Перейти</Button>
-            </Link>
-          </ProfileLine>) : <NoResults title="Сотрудники не найдены" tip={
-          search.length > 3 ? <Fragment>
-            <Button variant="primary" onClick={modalHelper.open}>Создать</Button>
-            {modalHelper.isOpen() && (
-              <Modal
-                isOpen
-                withCloseIcon
-                onClose={modalHelper.close}
-                renderContent={({ close }) => (
-                  <CreateUserModal modalClose={close} />
-                )}
+  return <PageHeaderWrapper content={
+    <Input
+      size="large"
+      placeholder="Поиск сотрудника..."
+      onChange={(e) => setSearch(e.target.value)}
+      value={search}
+    />
+  }>
+    <Row>
+      <Col md={11}>
+        {Object.entries(groupedEmployees).map(([role, employees]) => (
+          <React.Fragment key={role}>
+            <Divider orientation="left">{role}</Divider>
+            <List
+              loading={isLoading}
+              itemLayout="horizontal"
+              dataSource={employees || []}
+              renderItem={item => (
+                <List.Item
+                  style={{ backgroundColor: (searchData || []).find(el => el.id === item.user.id) && "rgba(255, 0, 0, 0.15)" }}
+                  actions={[
+                    <Link to={`/employees/${item.user.id}`}>
+                      <Button type="link">Перейти в профиль</Button>
+                    </Link>
+                  ]}
+                >
+                  <List.Item.Meta
+                    avatar={<Avatar size="large">{item.user.full_name.charAt(0)}</Avatar>}
+                    title={item.user.full_name}
+                  />
+                </List.Item>
+              )}
+            />
+          </React.Fragment>
+        ))}
+      </Col>
+      <Col md={11} offset={2}>
+        <List
+          loading={searchLoading}
+          itemLayout="horizontal"
+          dataSource={searchResults || []}
+          footer={!(searchResults || []).length && search.length > 3 && <div style={{ textAlign: "center" }}>
+            <Link to={`/employees/create`}><Button type="primary">Создать сотрудника</Button></Link>
+          </div>}
+          renderItem={item => (
+            <List.Item
+              actions={[
+                <Link to={`/employees/${item.id}`}>
+                  <Button type="link">Создать профиль</Button>
+                </Link>
+              ]}
+            >
+              <List.Item.Meta
+                avatar={<Avatar size="large">{item.full_name.charAt(0)}</Avatar>}
+                title={item.full_name}
               />
-            )}
-          </Fragment> : null
-        } />}
-      </Fragment>}
-    </div>
-  </Container>
+            </List.Item>
+          )}
+        />
+      </Col>
+    </Row>
+  </PageHeaderWrapper>
 }
 
 

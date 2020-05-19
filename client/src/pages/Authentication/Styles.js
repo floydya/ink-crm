@@ -29,17 +29,6 @@ export const FormHeading = styled.div`
   ${font.size(21)}
 `;
 
-export const SelectItem = styled.div`
-  display: flex;
-  align-items: center;
-  margin-right: 15px;
-  ${props => props.withBottomMargin && `margin-bottom: 5px;`}
-`;
-
-export const SelectItemLabel = styled.div`
-  padding: 0 3px 0 6px;
-`;
-
 export const Divider = styled.div`
   margin-top: 22px;
   border-top: 1px solid ${color.borderLightest};

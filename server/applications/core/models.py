@@ -88,6 +88,10 @@ class ExpenseType(models.Model):
         _("Name"),
         max_length=144,
     )
+    slug = models.SlugField(
+        null=True,
+        editable=False
+    )
 
     def __str__(self):
         return self.name

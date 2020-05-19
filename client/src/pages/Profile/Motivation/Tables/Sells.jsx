@@ -1,97 +1,61 @@
-import React, { useCallback, useMemo } from "react"
-import { Button } from "../../../../shared/components"
-import { useModalStateHelper } from "../../../Home/components/shared"
-import Modal from "../../../../shared/components/Modal"
-import { StoreForm } from "../MotivationForm"
-import useApi from "../../../../shared/hooks/api"
-import pubsub from "sweet-pubsub"
+import React, { useMemo, useContext } from "react";
+import MotivationForm from "../MotivationForm";
+import useApi from "shared/hooks/api";
+import ProfileContext from "pages/Profile/context";
+import { Table } from "antd";
 
-const TableRow = ({ sell, types, employee }) => {
-  const modalHelper = useModalStateHelper()
-  const [, deleteMotivation] = useApi.delete(`/motivation/sells/${sell?.id}/`)
-  const handleDelete = useCallback(() => {
-    deleteMotivation().then(() => pubsub.emit("fetch-profile"))
-  }, [deleteMotivation])
-  return <tr>
-    <td colSpan={2}>{sell.sell_category.name}</td>
-    <td colSpan={1} className="text-center">{sell.base_percent} %</td>
-    <td colSpan={1} className="text-center"
-        style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-      <Button icon="edit" iconSize={12} variant="primary" onClick={modalHelper.open} />
-      <Button icon="trash" iconSize={12} variant="danger" onClick={handleDelete} />
-      {modalHelper.isOpen() && (
-        <Modal
-          isOpen
-          withCloseIcon
-          width={600}
-          onClose={modalHelper.close}
-          renderContent={({ close }) => (
-            <StoreForm
-              modalClose={close}
-              employee={employee}
-              motivation={sell}
-              types={types}
-            />
-          )}
-        />
-      )}
-    </td>
-  </tr>
-}
-
-
-const StoreTable = ({ employee, sells }) => {
-  const modalHelper = useModalStateHelper()
-  const [{ data: types }] = useApi.get(`/store/categories/`, {}, { mountFetch: true })
+const SellMotivation = () => {
+  const { profile } = useContext(ProfileContext);
+  const { sell_motivations } = profile;
+  const [{ data: types }] = useApi.get(
+    `/store/categories/`,
+    {},
+    { mountFetch: true }
+  );
   const typeOptions = useMemo(
-    () => (types || []).map(el => ({ value: el.id, label: el.name })).filter(
-      el => !sells.find(mot => mot.sell_category?.id === el.value)
-    ),
-    [sells, types]
-  )
-  return <table>
-    <caption>
-      Сеансы
-    </caption>
-    <thead>
-    <tr>
-      <th colSpan={2}>Категория</th>
-      <th colSpan={1} className="text-center">Процент</th>
-      <th colSpan={1} />
-    </tr>
-    </thead>
-    <tbody>
-    {sells.map(sell => (<TableRow sell={sell} types={typeOptions} employee={employee} />))}
-    </tbody>
-    {typeOptions.length > 0 && <tfoot>
-    <tr>
-      <td colSpan={5} className="text-center">
-        <Button
-          icon="plus-square"
-          variant="empty"
-          onClick={modalHelper.open}
-        >
-          Добавить
-        </Button>
-        {modalHelper.isOpen() && (
-          <Modal
-            isOpen
-            withCloseIcon
-            width={600}
-            onClose={modalHelper.close}
-            renderContent={({ close }) => (
-              <StoreForm
-                modalClose={close}
-                employee={employee}
-                types={typeOptions}
-              />
-            )}
-          />
-        )}
-      </td>
-    </tr>
-    </tfoot>}
-  </table>
-}
+    () =>
+      (types || [])
+        .map((el) => ({ value: el.id, label: el.name }))
+        .filter(
+          (el) =>
+            !sell_motivations.find((mot) => mot.session_type?.id === el.value)
+        ),
+    [sell_motivations, types]
+  );
+  return (
+    <Table
+      tableLayout="fixed"
+      columns={[
+        {
+          title: "Категория",
+          key: "sell_category",
+          dataIndex: "sell_category",
+          render: (v) => v.name,
+        },
+        {
+          title: "Базовый процент",
+          key: "base_percent",
+          dataIndex: "base_percent",
+        },
+        {
+          title: "Действия",
+          key: "x",
+          render: (_, record) => (
+            <MotivationForm
+              href="sells"
+              types={typeOptions}
+              motivation={record}
+            />
+          ),
+        },
+      ]}
+      dataSource={sell_motivations}
+      pagination={false}
+      rowKey="id"
+      title={() => <h2>Продажи</h2>}
+      footer={() => <MotivationForm href="sells" types={typeOptions} />}
+    />
+  );
+};
 
-export default StoreTable
+export default SellMotivation;

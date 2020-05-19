@@ -1,63 +1,55 @@
-import React, { useMemo } from "react";
-import PropTypes from "prop-types";
-import { useCurrentProfile } from "../../../shared/hooks/currentUser";
-import Button from "../../../shared/components/Button";
-import Table from "../../../shared/components/Table";
-import { formatDateTime } from "../../../shared/utils/dateTime";
-import { useParams, Link } from "react-router-dom";
-import { RecordStatusLabel, RecordStatusOrder } from "pages/Records/utils";
-import moment from "moment";
+import React, { useMemo } from "react"
+import PropTypes from "prop-types"
+import { useCurrentProfile } from "shared/hooks/currentUser"
+import { formatDateTime } from "shared/utils/dateTime"
+import { useParams, Link } from "react-router-dom"
+import { RecordStatusLabel, RecordStatusOrder } from "pages/Records/utils"
+import moment from "moment"
+import { Button, Space, Table } from "antd"
 
 const propTypes = {
-  records: PropTypes.array.isRequired
-};
+  data: PropTypes.shape({
+    records: PropTypes.array.isRequired
+  })
+}
 
 const columns = [
   {
-    Header: "#",
-    accessor: "id",
-    width: 50
+    title: "ID",
+    dataIndex: "id",
+    key: "id"
   },
   {
-    Header: "Status",
-    accessor: "status",
-    Cell: ({
-      cell: {
-        row: { original }
-      }
-    }) => (
-      <RecordStatusLabel status={original.status}>
-        {original.status_display}
-      </RecordStatusLabel>
-    )
+    title: "Статус",
+    dataIndex: "status",
+    key: "status",
+    render: (status, original) => <RecordStatusLabel status={status} children={original.status_display} />
   },
   {
-    Header: "Datetime",
-    accessor: "datetime",
-    Cell: ({ cell: { value } }) => {
-      return `${formatDateTime(value, "DD.MM.YYYY HH:mm")}`;
-    }
+    title: "Дата",
+    dataIndex: "datetime",
+    key: "datetime",
+    render: (datetime) => formatDateTime(datetime, "DD.MM.YYYY HH:mm")
   },
   {
-    Header: "",
-    accessor: "id",
-    Cell: ({ cell: { value } }) => (
-      <Link to={`/records/${value}`}>
-        <Button icon="link" variant="empty">
+    title: "Действия",
+    key: "action",
+    render: (text, record) => <Space size="middle">
+      <Link to={`/records/${record.id}`}>
+        <Button type="default">
           Перейти
         </Button>
       </Link>
-    ),
-    className: "text-right"
+    </Space>
   }
-];
+]
 
-const RecordList = ({ records }) => {
-  const profile = useCurrentProfile();
-  const { customerId } = useParams();
+const RecordList = ({ data }) => {
+  const profile = useCurrentProfile()
+  const { customerId } = useParams()
   const recordList = useMemo(
     () =>
-      records
+      data.records
         .filter(el => el.parlor.id === profile.parlor.id)
         .sort(
           (a, b) => {
@@ -67,33 +59,22 @@ const RecordList = ({ records }) => {
             return RecordStatusOrder[a.status] - RecordStatusOrder[b.status]
           }
         ),
-    [records, profile.parlor.id]
-  );
-  return (
-    <div>
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center"
-        }}
-      >
-        <h3>
-          Записи в этом салоне. Всего записей у этого клиента: {records.length}.
-        </h3>
-        <Link to={`/records/create/${customerId}`}>
-          <Button variant="primary" icon="plus-square">
-            Создать
-          </Button>
-        </Link>
-      </div>
-      <div>
-        <Table columns={columns} data={recordList} />
-      </div>
+    [data.records, profile.parlor.id]
+  )
+  return (<Table columns={columns} dataSource={recordList} rowKey="id" title={() => (
+    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center"}}>
+      <h3>
+        Записи в этом салоне. Всего записей у этого клиента: {data.records.length}.
+      </h3>
+      <Link to={`/records/create/${customerId}`}>
+        <Button type="primary">
+          Создать
+        </Button>
+      </Link>
     </div>
-  );
-};
+  )} />)
+}
 
-RecordList.propTypes = propTypes;
+RecordList.propTypes = propTypes
 
-export default RecordList;
+export default RecordList

@@ -1,5 +1,5 @@
-import styled from "styled-components";
-import { mixin, color } from "shared/utils/styles";
+import React from "react";
+import { Tag } from "antd"
 
 export const RecordStatus = {
     NEW: 'new',
@@ -18,14 +18,17 @@ export const RecordStatusOrder = {
 }
 
 export const recordStatusColors = {
-    [RecordStatus.NEW]: mixin.rgba(color.primary, 0.285),
-    [RecordStatus.PENDING]: mixin.rgba(color.primary, 0.285),
-    [RecordStatus.IN_WORK]: mixin.rgba(color.success, 0.285),
-    [RecordStatus.FINISHED]: mixin.rgba(color.secondary, 0.875),
-    [RecordStatus.CANCELED]: mixin.rgba(color.danger, 0.285),
+    [RecordStatus.NEW]: "gold",
+    [RecordStatus.PENDING]: "gold",
+    [RecordStatus.IN_WORK]: "volcano",
+    [RecordStatus.FINISHED]: "lime",
+    [RecordStatus.CANCELED]: "gray",
 }
 
-export const RecordStatusLabel = styled.span`
-    ${mixin.tag()}
-    background: ${props => recordStatusColors[props.status]};
-`
+export const RecordStatusLabel = ({ status, children, ...props }) => (
+  <Tag {...props} color={recordStatusColors[status]}>
+      {children}
+  </Tag>
+)
+
+export const canEdit = (status) => [RecordStatus.NEW, RecordStatus.PENDING].includes(status)
